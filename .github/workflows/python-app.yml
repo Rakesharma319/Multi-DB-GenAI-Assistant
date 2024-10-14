@@ -24,4 +24,4 @@ jobs:
       env:
         GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
       run: |
-        python demo111.py
+        python demo111.py "$GOOGLE_API_KEY"
