@@ -170,7 +170,7 @@ def to_markdown(text):
 
 
 def get_final_output_from_model():
-  model = genai.GenerativeModel('gemini-1.5-flash')
+  model = genai.GenerativeModel('gemini-1.5-flash',tools='code_execution')
   response = model.generate_content(prompt_to_get_sqlwitanalysis)
   SQL_Code = response.text
   return response.text
