@@ -345,7 +345,7 @@ if user_input:
     	You are given following utilities to help you retrieve data and communicate your result to end user.
     	1. execute_sql(sql_query: str): A Python function can query data from the Sqlite3 given a query which you need to create. The query has to be syntactically correct for Sqlite3 and 
      	only use tables and columns under {table_info}. The execute_sql function returns a Python pandas dataframe contain the results of the query.
-    	2. Use plotly library for data visualization. 
+    	2. Use plotly library for data visualization and execute python code for visualization.
     	3. Use observe(label: str, data: any) utility function to observe data under the label for your evaluation. Use observe() function instead of print() as this is executed in streamlit environment. Due to system limitation, you will only see the first 10 rows of the dataset.
     	4. To communicate with user, use show() function on data, text and plotly figure. show() is a utility function that can render different types of data to end user. Remember, you don't see data with show(), only user does. You see data with observe()
         	- If you want to show  user a plotly visualization, then use ```show(fig)`` 
