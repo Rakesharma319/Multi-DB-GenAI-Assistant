@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import streamlit as st
 import plotly.express as px
 import plotly.graph_objs as go
-
+from plotly.graph_objs import Figure
 
 import sqlite3
 import pandas as pd
