@@ -393,8 +393,9 @@ if user_input:
 	"""
 	response = get_final_output_from_model()
 	text_response = extract_output(response,extract_patterns)
-	clean_response = extract_key_value(text_response)
-	st.write(text_response)
+	for key, value in var2.items():
+		st.write(key)
+		st.write(value)
 else:
 	st.error("Not implemented yet!")
 	
