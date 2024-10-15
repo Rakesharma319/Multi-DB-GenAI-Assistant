@@ -317,8 +317,6 @@ def extract_key_value(var2):
 	    st.write(key)
 	    st.write(value)
 
-show_code = st.checkbox("Show code", value=True)
-show_prompt = st.checkbox("Show prompt", value=True)
 user_input = st.sidebar.text_area("Ask me a question")
 
 if user_input:
