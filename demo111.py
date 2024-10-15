@@ -15,11 +15,10 @@ def runapp():
     Enter = "True"
 
 st.markdown(
-    """# **Database OpenAI Assistant**
+    """# **Database Gen AI Assistant**
 This is an experimental assistant that requires OpenAI access. The app demonstrates the use of OpenAI to support getting insights from Database by just asking questions. The assistant can also generate SQL and Python code for the Questions.
 """
 )
-
 
 model = genai.GenerativeModel('gemini-1.5-flash')
 user_input = st.sidebar.text_area("Ask me a question")
