@@ -363,7 +363,7 @@ if user_input:
 	import numpy as np
 	#Query some data
 	sql_query = "SOME SQL QUERY"
-	step1_df = execute_sql(sql_query)
+	step1_df = execute_sql_query(sql_query)
 	# Replace 0 with NaN. Always have this step
 	step1_df['Some_Column'] = step1_df['Some_Column'].replace(0, np.nan)
 	
