@@ -2,3 +2,4 @@ pandas
 numpy
 google.generativeai
 streamlit
+IPython
