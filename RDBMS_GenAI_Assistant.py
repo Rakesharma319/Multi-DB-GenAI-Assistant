@@ -287,12 +287,17 @@ if user_input:
 	
 	Here is the user question: {user_input}
 	
-	You are given following utilities to help you retrieve data and communicate your result to end user.
-	1. execute_sql(sql_query: str): A Python function can query data from the Sqlite3 given a query which you need to create. 
-	The query has to be syntactically correct for Sqlite3 and only use tables and columns under {table_info}. 
-	The execute_sql function returns a Python pandas dataframe contain the results of the query.
-	5. Don't forget to deal with data quality problem. You should apply data imputation technique to deal with missing data or NAN data.
-	6. Always follow the flow of Thought: , Observation:, Action: and Answer: as in template below strictly.
+    	You are given following utilities to help you retrieve data and communicate your result to end user.
+    	1. execute_sql(sql_query: str): A Python function can query data from the Sqlite3 given a query which you need to create. The query has to be syntactically correct for Sqlite3 and 
+     	only use tables and columns under {table_info}. The execute_sql function returns a Python pandas dataframe contain the results of the query.
+    	2. Use plotly library for data visualization. 
+    	3. Use observe(label: str, data: any) utility function to observe data under the label for your evaluation. Use observe() function instead of print() as this is executed in streamlit environment. Due to system limitation, you will only see the first 10 rows of the dataset.
+    	4. To communicate with user, use show() function on data, text and plotly figure. show() is a utility function that can render different types of data to end user. Remember, you don't see data with show(), only user does. You see data with observe()
+        	- If you want to show  user a plotly visualization, then use ```show(fig)`` 
+       		- If you want to show user data which is a text or a pandas dataframe or a list, use ```show(data)```
+        	- Never use print(). User don't see anything with print()
+    	5. Lastly, don't forget to deal with data quality problem. You should apply data imputation technique to deal with missing data or NAN data.
+    	6. Always follow the flow of Thought: , Observation:, Action: and Answer: as in template below strictly. 
 	
 	<<Template>>
 	Question: User Question
