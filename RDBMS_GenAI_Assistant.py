@@ -314,8 +314,8 @@ def extract_output(text_input,extract_patterns):
 def extract_key_value(var2):
     for key, value in var2.items():
         # print(f"{key}: {value}")
-	st.write(key)
-	st.write(value)
+	    st.write(key)
+	    st.write(value)
 
 user_input = st.sidebar.text_area("Ask me a question")
 
