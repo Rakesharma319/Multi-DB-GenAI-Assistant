@@ -3,3 +3,4 @@ numpy
 google.generativeai
 streamlit
 IPython
+matplotlib
