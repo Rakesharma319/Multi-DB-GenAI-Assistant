@@ -387,7 +387,7 @@ if user_input:
 	"""
 	response = get_final_output_from_model()
 	# clean_response = extract_output(response,extract_patterns)
-	st.write(to_markdown(response))
+	st.write(response)
 else:
 	st.error("Not implemented yet!")
 	
