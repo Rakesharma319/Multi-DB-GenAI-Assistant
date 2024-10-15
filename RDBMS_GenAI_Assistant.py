@@ -151,7 +151,7 @@ def observe(name, data):
 
 
 def show(data):
-    if isinstance(data, Figure):
+    if type(data) is Figure:
         st.plotly_chart(data)
     else:
         st.write(data)
