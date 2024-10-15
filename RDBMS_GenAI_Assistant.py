@@ -311,6 +311,10 @@ def extract_output(text_input,extract_patterns):
 
     return output
 
+def extract_key_value(var2):
+    for key, value in var2.items():
+        print(f"{key}: {value}")
+
 user_input = st.sidebar.text_area("Ask me a question")
 
 if user_input:
@@ -386,8 +390,8 @@ if user_input:
 	
 	"""
 	response = get_final_output_from_model()
-	# clean_response = extract_output(response,extract_patterns)
-	st.write(response)
+	clean_response = extract_key_value(response,extract_patterns)
+	st.write(clean_response)
 else:
 	st.error("Not implemented yet!")
 	
