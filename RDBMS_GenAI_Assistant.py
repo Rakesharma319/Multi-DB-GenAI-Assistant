@@ -390,7 +390,7 @@ if user_input:
 	
 	"""
 	response = get_final_output_from_model()
-	clean_response = extract_key_value(response,extract_patterns)
+	clean_response = extract_key_value(response)
 	st.write(clean_response)
 else:
 	st.error("Not implemented yet!")
