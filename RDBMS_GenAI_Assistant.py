@@ -149,7 +149,7 @@ def observe(name, data):
         pass
     self.st.session_state[f"observation:{name}"] = data
 
-show = True
+
 def show(data):
     if type(data) is Figure:
         st.plotly_chart(data)
@@ -320,6 +320,8 @@ def extract_key_value(var2):
 user_input = st.sidebar.text_area("Ask me a question")
 
 if user_input:
+	show_code = st.checkbox("Show code", value=True)
+        show_prompt = st.checkbox("Show prompt", value=True)
 	table_names = get_all_table_names()
 	
 	prompt_tableList = f"""You are an expert analyst,
