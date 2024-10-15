@@ -25,7 +25,7 @@ user_input = st.sidebar.text_area("Ask me a question")
 
 if user_input:
   response = model.generate_content(user_input)
-  st.write("Question: "{user_input})
+  st.write("Question: ",{user_input})
   st.write("Model Response: ")
   st.write(response.text)
 else:
