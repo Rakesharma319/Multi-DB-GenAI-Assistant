@@ -149,7 +149,7 @@ def observe(name, data):
         pass
     self.st.session_state[f"observation:{name}"] = data
 
-
+show = True
 def show(data):
     if type(data) is Figure:
         st.plotly_chart(data)
