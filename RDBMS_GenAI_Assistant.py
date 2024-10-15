@@ -28,7 +28,7 @@ def create_chinook_database():
     print("Chinook database created successfully.")
     return None
 	
------------------------------------------------------
+# -----------------------------------------------------
 
 # Create function to list all table names from sqlite and return as pandas datafram name as name
 
@@ -48,7 +48,7 @@ def get_all_table_names():
     return df
 	
 
------------------------------------------------------
+# -----------------------------------------------------
 
 # Creating a function to call "gemini-1.5-flash" to analyse user input and filter only required
 # table list from given list of table as context in prompt
