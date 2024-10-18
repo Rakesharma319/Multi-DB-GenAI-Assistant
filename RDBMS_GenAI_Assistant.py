@@ -342,12 +342,14 @@ def display_output(responce):
 
     if "Thought 1" in action3:
       st.write(action3)
-      st.write(python_code1)
+      # st.write(python_code1)
+	    st.code(python_code1)
       exec(python_code1,locals())
       # print("\n")
     if "Thought 2" in action3:
       st.write(action3)
-      st.write(python_code2)
+      # st.write(python_code2)
+	    st.code(python_code2)
       exec(python_code2,locals())
       # print("\n")
     if "Answer" in action3:
