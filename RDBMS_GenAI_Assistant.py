@@ -290,7 +290,7 @@ def run(question: str, show_code, show_prompt, st) -> any:
                 finish = True
         if show_prompt:
             st.write("Prompt")
-            # st.write(conversation_history)
+            st.write(prompt_to_get_sqlwitanalysis)
 
         count += 1
         if count >= max_steps:
