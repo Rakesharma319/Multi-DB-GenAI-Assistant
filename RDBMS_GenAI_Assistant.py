@@ -297,6 +297,47 @@ def run(question: str, show_code, show_prompt, st) -> any:
             print("Exceeding threshold, finish")
             break
 
+# --------------------------------------
+
+# function to display llm responce
+
+def display_output(responce):
+
+  def execute_sql_query(str,con=conn):
+    return pd.read_sql('''{}'''.format(str), con)
+
+  def observe(name, data):
+    try:
+        data = data[:5]  # limit the print out observation to 5 elements
+    except:
+        pass
+    print(f"observation:{name}")
+    print(data )
+
+  def show(data):
+    if type(data) is Figure:
+      # data.show()
+	    st.plotly_chart(data)
+    else:
+      st.write(data)
+  
+  actions3 = responce.split('\n')
+  for action3 in actions3:
+    if "Question" in action3:
+      st.write(action3)
+
+    if "Thought 1" in action3:
+      st.write(action3)
+      st.write(python_code1)
+      exec(python_code1,locals())
+      # st.write("\n")
+    if "Thought 2" in action3:
+      st.write(action3)
+      st.write(python_code2)
+      st.write(python_code2,locals())
+      # print("\n")
+    if "Answer" in action3:
+      st.write(action3)
 
 # ------------- Streamlit app --------------
 
@@ -314,13 +355,6 @@ This is an experimental assistant that requires Gemini API access. The app demon
 """
 )
 
-
-
-def extract_key_value(var2):
-    for key, value in var2.items():
-        # print(f"{key}: {value}")
-	    st.write(key)
-	    st.write(value)
 
 show_code = st.checkbox("Show code", value=True)
 show_prompt = st.checkbox("Show prompt", value=True)
@@ -398,9 +432,11 @@ if user_input:
 	<</Template>>
 	
 	"""
-	# response = get_final_output_from_model()
-	op = run(user_input, show_code, show_prompt, st)
-	st.write(op)
+	response = get_final_output_from_model()
+	# op = run(user_input, show_code, show_prompt, st)
+	# st.write(op)
+	display_output(response)
+	
 
 else:
 	st.error("Not implemented yet!")
