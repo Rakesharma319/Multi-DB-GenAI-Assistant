@@ -267,7 +267,7 @@ def run(question: str, show_code, show_prompt, st) -> any:
                                 serialized_obs.append(
                                     {key.split(":")[1]: str(observation)}
                                 )
-                            del self.st.session_state[key]
+                            del st.session_state[key]
                 except Exception as e:
                     observations.append(("Error:", str(e)))
                     serialized_obs.append(
