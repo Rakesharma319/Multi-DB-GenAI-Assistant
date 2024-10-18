@@ -187,7 +187,7 @@ def extract_output(text_input,extract_patterns):
     return output
 
 
-def run(question: str, show_code, show_prompt, st) -> any:
+def run(self, question: str, show_code, show_prompt, st) -> any:
     import numpy as np
     import plotly.express as px
     import plotly.graph_objs as go
