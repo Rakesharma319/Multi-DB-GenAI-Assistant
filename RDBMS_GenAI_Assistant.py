@@ -208,10 +208,10 @@ def run(question: str, show_code, show_prompt, st) -> any:
         else:
             st.write(data)
         i = 0
-        for key in self.st.session_state.keys():
+        for key in st.session_state.keys():
             if "show" in key:
                 i += 1
-            self.st.session_state[f"show{i}"] = data
+            st.session_state[f"show{i}"] = data
             if type(data) is not Figure:
                 st.session_state[f"observation: show_to_user{i}"] = data
 
