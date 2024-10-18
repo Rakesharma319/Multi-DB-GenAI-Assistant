@@ -319,6 +319,8 @@ def extract_key_value(var2):
 	    st.write(key)
 	    st.write(value)
 
+show_code = st.checkbox("Show code", value=True)
+show_prompt = st.checkbox("Show prompt", value=True)
 user_input = st.sidebar.text_area("Ask me a question")
 
 if user_input:
@@ -394,7 +396,7 @@ if user_input:
 	
 	"""
 	response = get_final_output_from_model()
-	op = run(user_input, show_code=True, show_prompt=True, st)
+	op = run(user_input, show_code, show_prompt, st)
 	st.write(op)
 
 else:
