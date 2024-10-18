@@ -365,8 +365,8 @@ This is an experimental assistant that requires Gemini API access. The app demon
 )
 
 
-show_code = st.checkbox("Show code", value=True)
-show_prompt = st.checkbox("Show prompt", value=True)
+# show_code = st.checkbox("Show code", value=True)
+# show_prompt = st.checkbox("Show prompt", value=True)
 user_input = st.sidebar.text_area("Ask me a question")
 
 if user_input:
