@@ -294,7 +294,7 @@ def run(question: str, show_code, show_prompt, st) -> any:
 
         count += 1
         if count >= max_steps:
-            print("Exceeding threshold, finish")
+            st.write("Exceeding threshold, finish")
             break
 
 # --------------------------------------
@@ -317,14 +317,14 @@ def display_output(responce):
         data = data[:5]  # limit the print out observation to 5 elements
     except:
         pass
-    print(f"observation:{name}")
-    print(data )
+    st.write(f"observation:{name}")
+    st.write(data )
 
   def show(data):
     if type(data) is Figure:
-      data.show()
+      st.plotly_chart(data)
     else:
-      print(data)
+      st.write(data)
 
   actions = responce.split("```")[1::2]
 
@@ -338,20 +338,20 @@ def display_output(responce):
   actions3 = responce.split('\n')
   for action3 in actions3:
     if "Question" in action3:
-      print(action3,"\n")
+      st.write(action3)
 
     if "Thought 1" in action3:
-      print(action3)
-      print(python_code1)
+      st.write(action3)
+      st.write(python_code1)
       exec(python_code1,locals())
-      print("\n")
+      # print("\n")
     if "Thought 2" in action3:
-      print(action3)
-      print(python_code2)
+      st.write(action3)
+      st.write(python_code2)
       exec(python_code2,locals())
-      print("\n")
+      # print("\n")
     if "Answer" in action3:
-      print(action3)
+      st.write(action3)
 # ------------- Streamlit app --------------
 
 #-------------- Ask api key
