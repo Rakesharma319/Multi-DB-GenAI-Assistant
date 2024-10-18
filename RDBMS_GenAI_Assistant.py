@@ -289,8 +289,8 @@ def run(question: str, show_code, show_prompt, st) -> any:
                 print("Answer is given, finish")
                 finish = True
         if show_prompt:
-            self.st.write("Prompt")
-            self.st.write(conversation_history)
+            st.write("Prompt")
+            st.write(conversation_history)
 
         count += 1
         if count >= max_steps:
