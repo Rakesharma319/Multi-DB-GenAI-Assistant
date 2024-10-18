@@ -187,7 +187,7 @@ def extract_output(text_input,extract_patterns):
     return output
 
 
-def run(self, question: str, show_code, show_prompt, st) -> any:
+def run(question: str, show_code, show_prompt, st) -> any:
     import numpy as np
     import plotly.express as px
     import plotly.graph_objs as go
@@ -213,14 +213,14 @@ def run(self, question: str, show_code, show_prompt, st) -> any:
                 i += 1
             self.st.session_state[f"show{i}"] = data
             if type(data) is not Figure:
-                self.st.session_state[f"observation: show_to_user{i}"] = data
+                st.session_state[f"observation: show_to_user{i}"] = data
 
     def observe(name, data):
         try:
             data = data[:5]  # limit the print out observation to 15 rows
         except:
             pass
-        self.st.session_state[f"observation:{name}"] = data
+        st.session_state[f"observation:{name}"] = data
 
     max_steps = 3
     count = 1
@@ -254,9 +254,9 @@ def run(self, question: str, show_code, show_prompt, st) -> any:
                 serialized_obs = []
                 try:
                     exec(value, locals())
-                    for key in self.st.session_state.keys():
+                    for key in st.session_state.keys():
                         if "observation:" in key:
-                            observation = self.st.session_state[key]
+                            observation = st.session_state[key]
                             observations.append((key.split(":")[1], observation))
                             if type(observation) is pd:
                                 serialized_obs.append(
@@ -290,7 +290,7 @@ def run(self, question: str, show_code, show_prompt, st) -> any:
                 finish = True
         if show_prompt:
             self.st.write("Prompt")
-            self.st.write(self.conversation_history)
+            self.st.write(conversation_history)
 
         count += 1
         if count >= max_steps:
