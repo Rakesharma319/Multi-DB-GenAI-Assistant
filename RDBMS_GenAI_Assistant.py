@@ -303,7 +303,12 @@ def run(question: str, show_code, show_prompt, st) -> any:
 
 
 def display_output(responce):
+  import sqlite3
+  import pandas as pd
+  import matplotlib.pyplot as plt
+  import numpy as np
 
+  conn = sqlite3.connect('Chinook.db')
   def execute_sql_query(str,con=conn):
     return pd.read_sql('''{}'''.format(str), con)
 
@@ -347,7 +352,6 @@ def display_output(responce):
       print("\n")
     if "Answer" in action3:
       print(action3)
-
 # ------------- Streamlit app --------------
 
 #-------------- Ask api key
