@@ -184,6 +184,7 @@ def run(question: str, show_code, show_prompt, st) -> any:
 
     while not finish:
         llm_output = get_final_output_from_model()
+	next_steps = extract_output(response,extract_patterns)
         # if llm_output == "OPENAI_ERROR":
             # st.write(
                 # "Error Calling Open AI, probably due to max service limit, please try again"
@@ -196,7 +197,7 @@ def run(question: str, show_code, show_prompt, st) -> any:
             # continue
 
         #new_input += f"\n{llm_output}"
-        for key, value in llm_output.items():
+        for key, value in next_steps.items():
             new_input += f"\n{value}"
 
             if "ACTION" in key.upper():
@@ -395,7 +396,7 @@ if user_input:
 	<</Template>>
 	
 	"""
-	response = get_final_output_from_model()
+	# response = get_final_output_from_model()
 	op = run(user_input, show_code, show_prompt, st)
 	st.write(op)
 
