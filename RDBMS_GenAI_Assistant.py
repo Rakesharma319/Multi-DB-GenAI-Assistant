@@ -343,14 +343,14 @@ def display_output(responce):
     if "Thought 1" in action3:
       st.write(action3)
       # st.write(python_code1)
-	    st.code(python_code1,language="python")
+      st.code(python_code1,language="python")
       exec(python_code1,locals())
       # print("\n")
 	  
     if "Thought 2" in action3:
       st.write(action3)
       # st.write(python_code2)
-	    st.code(python_code2,language="python")
+      st.code(python_code2,language="python")
       exec(python_code2,locals())
       # print("\n")
 	  
