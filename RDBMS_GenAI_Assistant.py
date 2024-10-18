@@ -195,7 +195,7 @@ def run(question: str, show_code, show_prompt, st) -> any:
 
     st.write(f"Question: {question}")
 
-    conn = sqlite3.connect('TechItOut2DB.db')
+    conn = sqlite3.connect('Chinook.db')
 
     def execute_sql_query(str,con=conn):
         return pd.read_sql('''{}'''.format(str), con)
@@ -230,7 +230,7 @@ def run(question: str, show_code, show_prompt, st) -> any:
 
     while not finish:
         llm_output = get_final_output_from_model()
-        next_steps = extract_output(response,extract_patterns)
+        next_steps = extract_output(llm_output,extract_patterns)
         # if llm_output == "OPENAI_ERROR":
             # st.write(
                 # "Error Calling Open AI, probably due to max service limit, please try again"
