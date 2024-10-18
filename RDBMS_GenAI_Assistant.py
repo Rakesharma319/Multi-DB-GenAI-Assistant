@@ -141,6 +141,52 @@ def get_final_output_from_model():
   return response.text
 
 
+extract_patterns = [
+  ("Thought:", r"(Thought \d+):\s*(.*?)(?:\n|$)"),
+  ("Action:", r"```python\n(.*?)```"),
+  ("Answer:", r"([Aa]nswer:) (.*)"),
+  ]
+
+def extract_output(text_input,extract_patterns):
+    import re
+    output = {}
+    if len(text_input) == 0:
+        return output
+    for pattern in extract_patterns:
+        if "sql" in pattern[1]:
+            sql_query = ""
+            sql_result = re.findall(pattern[1], text_input, re.DOTALL)
+
+            if len(sql_result) > 0:
+                sql_query = sql_result[0]
+                output[pattern[0]] = sql_query
+            else:
+                return output
+            text_before = (
+                text_input.split(sql_query)[0]
+                .strip("\n")
+                .strip("```sql")
+                .strip("\n")
+            )
+
+            if text_before is not None and len(text_before) > 0:
+                output["text_before"] = text_before
+            text_after = text_input.split(sql_query)[1].strip("\n").strip("```")
+            if text_after is not None and len(text_after) > 0:
+                output["text_after"] = text_after
+            return output
+
+        if "python" in pattern[1]:
+            result = re.findall(pattern[1], text_input, re.DOTALL)
+            if len(result) > 0:
+                output[pattern[0]] = result[0]
+        else:
+            result = re.search(pattern[1], text_input, re.DOTALL)
+            if result:
+                output[result.group(1)] = result.group(2)
+    return output
+
+
 def run(question: str, show_code, show_prompt, st) -> any:
     import numpy as np
     import plotly.express as px
@@ -184,7 +230,7 @@ def run(question: str, show_code, show_prompt, st) -> any:
 
     while not finish:
         llm_output = get_final_output_from_model()
-	next_steps = extract_output(response,extract_patterns)
+        next_steps = extract_output(response,extract_patterns)
         # if llm_output == "OPENAI_ERROR":
             # st.write(
                 # "Error Calling Open AI, probably due to max service limit, please try again"
@@ -268,51 +314,7 @@ This is an experimental assistant that requires Gemini API access. The app demon
 """
 )
 
-extract_patterns = [
-  ("Thought:", r"(Thought \d+):\s*(.*?)(?:\n|$)"),
-  ("Action:", r"```python\n(.*?)```"),
-  ("Answer:", r"([Aa]nswer:) (.*)"),
-  ]
 
-def extract_output(text_input,extract_patterns):
-    import re
-    output = {}
-    if len(text_input) == 0:
-        return output
-    for pattern in extract_patterns:
-        if "sql" in pattern[1]:
-            sql_query = ""
-            sql_result = re.findall(pattern[1], text_input, re.DOTALL)
-
-            if len(sql_result) > 0:
-                sql_query = sql_result[0]
-                output[pattern[0]] = sql_query
-            else:
-                return output
-            text_before = (
-                text_input.split(sql_query)[0]
-                .strip("\n")
-                .strip("```sql")
-                .strip("\n")
-            )
-
-            if text_before is not None and len(text_before) > 0:
-                output["text_before"] = text_before
-            text_after = text_input.split(sql_query)[1].strip("\n").strip("```")
-            if text_after is not None and len(text_after) > 0:
-                output["text_after"] = text_after
-            return output
-
-        if "python" in pattern[1]:
-            result = re.findall(pattern[1], text_input, re.DOTALL)
-            if len(result) > 0:
-                output[pattern[0]] = result[0]
-        else:
-            result = re.search(pattern[1], text_input, re.DOTALL)
-            if result:
-                output[result.group(1)] = result.group(2)
-
-    return output
 
 def extract_key_value(var2):
     for key, value in var2.items():
