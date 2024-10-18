@@ -133,41 +133,6 @@ def get_table_schema(tables_List):
 # using "gemini-1.5-flash" model
 # function to extract SQL code from model generated text response
 
-def extract_sql_from_response(response):
-  import re
-  SQL_Code = response.text
-  sql_code = re.search(r"sql\n(.*?)\n", SQL_Code, re.DOTALL).group(1)
-  return sql_code
-
-def execute_sql_query(str,con=conn):
-    return pd.read_sql('''{}'''.format(str), con)
-	
-def observe(name, data):
-    try:
-        data = data[:5]  # limit the print out observation to 15 rows
-    except:
-        pass
-    self.st.session_state[f"observation:{name}"] = data
-
-
-def show(data):
-    if type(data) is Figure:
-        st.plotly_chart(data)
-    else:
-        st.write(data)
-    i = 0
-    for key in self.st.session_state.keys():
-        if "show" in key:
-            i += 1
-        self.st.session_state[f"show{i}"] = data
-        if type(data) is not Figure:
-            self.st.session_state[f"observation: show_to_user{i}"] = data
-
-
-def to_markdown(text):
-  text = text.replace('•', '  *')
-  return Markdown(textwrap.indent(text, '> ', predicate=lambda _: True))
-
 
 def get_final_output_from_model():
   model = genai.GenerativeModel('gemini-1.5-flash')
@@ -176,78 +141,115 @@ def get_final_output_from_model():
   return response.text
 
 
-# # -------------------------------------------------
-# prompt_tableList = f"""You are an expert analyst,
-# Analyse the user_input and table_name Then Return the names of ALL the SQL tables that MIGHT be relevant to the user question. \
-# The tables are:
-# {table_names}
-# Remember to include ALL POTENTIALLY RELEVANT tables, even if you're not sure that they're needed.
+def run(question: str, show_code, show_prompt, st) -> any:
+    import numpy as np
+    import plotly.express as px
+    import plotly.graph_objs as go
+    import pandas as pd
 
-# Here is user input:
-# {user_input}
+    st.write(f"Question: {question}")
 
-# Strictly only return list of table_name in pandas list format. No any other text.
-# """
-# # ----------------------------------------------------
-# prompt_to_get_sqlwitanalysis = f"""
-# You are a smart AI assistant to help answer business questions based on analyzing data.
-# You can plan solving the question with one or multiple thought step. At each thought step, you can write python code to analyze data to assist you. Observe what you get at each step to plan for the next step.
+    conn = sqlite3.connect('TechItOut2DB.db')
 
-# Here is the user question: {user_input}
+    def execute_sql_query(str,con=conn):
+        return pd.read_sql('''{}'''.format(str), con)
 
-# You are given following utilities to help you retrieve data and communicate your result to end user.
-# 1. execute_sql(sql_query: str): A Python function can query data from the Sqlite3 given a query which you need to create. 
-# The query has to be syntactically correct for Sqlite3 and only use tables and columns under {filtered_table_list}. 
-# The execute_sql function returns a Python pandas dataframe contain the results of the query.
-# 5. Don't forget to deal with data quality problem. You should apply data imputation technique to deal with missing data or NAN data.
-# 6. Always follow the flow of Thought: , Observation:, Action: and Answer: as in template below strictly.
+    observation = None
 
-# <<Template>>
-# Question: User Question
-# Thought 1: Your thought here.
-# Action:
-# ```python
-# #Import neccessary libraries here
-# import numpy as np
-# #Query some data
-# sql_query = "SOME SQL QUERY"
-# step1_df = execute_sql(sql_query)
-# # Replace 0 with NaN. Always have this step
-# step1_df['Some_Column'] = step1_df['Some_Column'].replace(0, np.nan)
+    def show(data):
+        if type(data) is Figure:
+            st.plotly_chart(data)
+        else:
+            st.write(data)
+        i = 0
+        for key in self.st.session_state.keys():
+            if "show" in key:
+                i += 1
+            self.st.session_state[f"show{i}"] = data
+            if type(data) is not Figure:
+                self.st.session_state[f"observation: show_to_user{i}"] = data
 
-# #observe query result
-# ```
-# Observation:
-# step1_df is displayed here
-# Thought 2: Your thought here
-# Action:
-# ```python
-# import plotly.express as px
-# #from step1_df, perform some data analysis action to produce step2_df
-# #To see the data for yourself the only way is to use observe()
-# observe("some_label", step2_df) #Always use observe()
-# #Decide to show it to user.
-# fig=px.line(step2_df)
-# #visualize fig object to user.
-# show(fig)
-# #you can also directly display tabular or text data to end user.
-# show(step2_df)
-# ```
-# Observation:
-# step2_df is displayed here
-# Answer: Your final answer and comment for the question
-# <</Template>>
+    def observe(name, data):
+        try:
+            data = data[:5]  # limit the print out observation to 15 rows
+        except:
+            pass
+        self.st.session_state[f"observation:{name}"] = data
 
-# """
+    max_steps = 3
+    count = 1
 
-# calling all function in main function
+    finish = False
+    new_input = f"Question: {question}"
 
-# def __main__():
-#   # create_chinook_database()
-#   filtered_table_list = get_table_list_through_model()
-#   table_info=get_table_schema(filtered_table_list)
-#   final_output = get_final_output_from_model()
-#   return final_output
+    while not finish:
+        llm_output = get_final_output_from_model()
+        # if llm_output == "OPENAI_ERROR":
+            # st.write(
+                # "Error Calling Open AI, probably due to max service limit, please try again"
+            # )
+            # break
+        # elif (
+            # llm_output == "WRONG_OUTPUT_FORMAT"
+        # ):  # just have open AI try again till the right output comes
+            # count += 1
+            # continue
+
+        #new_input += f"\n{llm_output}"
+        for key, value in llm_output.items():
+            new_input += f"\n{value}"
+
+            if "ACTION" in key.upper():
+                if show_code:
+                    st.write(key)
+                    st.code(value)
+                observations = []
+                serialized_obs = []
+                try:
+                    exec(value, locals())
+                    for key in self.st.session_state.keys():
+                        if "observation:" in key:
+                            observation = self.st.session_state[key]
+                            observations.append((key.split(":")[1], observation))
+                            if type(observation) is pd:
+                                serialized_obs.append(
+                                    (key.split(":")[1], observation.to_string())
+                                )
+
+                            elif type(observation) is not Figure:
+                                serialized_obs.append(
+                                    {key.split(":")[1]: str(observation)}
+                                )
+                            del self.st.session_state[key]
+                except Exception as e:
+                    observations.append(("Error:", str(e)))
+                    serialized_obs.append(
+                        {"Encounter following error, can you try again?\n:": str(e)}
+                    )
+
+                for observation in observations:
+                    st.write(observation[0])
+                    st.write(observation[1])
+
+                obs = (
+                    f"\nObservation on the first 10 rows of data: {serialized_obs}"
+                )
+                new_input += obs
+            else:
+                st.write(key)
+                st.write(value)
+            if "Answer" in key:
+                print("Answer is given, finish")
+                finish = True
+        if show_prompt:
+            self.st.write("Prompt")
+            self.st.write(self.conversation_history)
+
+        count += 1
+        if count >= max_steps:
+            print("Exceeding threshold, finish")
+            break
+
 
 # ------------- Streamlit app --------------
 
@@ -392,7 +394,8 @@ if user_input:
 	
 	"""
 	response = get_final_output_from_model()
-	st.write(response)
+	op = run(user_input, show_code=True, show_prompt=True, st)
+	st.write(op)
 
 else:
 	st.error("Not implemented yet!")
