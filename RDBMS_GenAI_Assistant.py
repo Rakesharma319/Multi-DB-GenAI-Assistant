@@ -301,6 +301,7 @@ def run(question: str, show_code, show_prompt, st) -> any:
 
 # function to display llm responce
 
+
 def display_output(responce):
 
   def execute_sql_query(str,con=conn):
@@ -316,28 +317,36 @@ def display_output(responce):
 
   def show(data):
     if type(data) is Figure:
-      # data.show()
-	    st.plotly_chart(data)
+      data.show()
     else:
-      st.write(data)
-  
+      print(data)
+
+  actions = responce.split("```")[1::2]
+
+  python_actions = [action for action in actions if "python" in action]
+  python_code1 = python_actions[0]
+  python_code2 = python_actions[1]
+
+  python_code1 = python_code1.replace("python\n","")
+  python_code2 = python_code2.replace("python\n","")
+
   actions3 = responce.split('\n')
   for action3 in actions3:
     if "Question" in action3:
-      st.write(action3)
+      print(action3,"\n")
 
     if "Thought 1" in action3:
-      st.write(action3)
-      st.write(python_code1)
+      print(action3)
+      print(python_code1)
       exec(python_code1,locals())
-      # st.write("\n")
+      print("\n")
     if "Thought 2" in action3:
-      st.write(action3)
-      st.write(python_code2)
-      st.write(python_code2,locals())
-      # print("\n")
+      print(action3)
+      print(python_code2)
+      exec(python_code2,locals())
+      print("\n")
     if "Answer" in action3:
-      st.write(action3)
+      print(action3)
 
 # ------------- Streamlit app --------------
 
