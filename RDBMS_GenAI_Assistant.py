@@ -156,7 +156,7 @@ def display_output(responce):
 
   def observe(name, data):
     try:
-        data = data[:5]  # limit the print out observation to 5 elements
+        data = data[:10]  # limit the print out observation to 5 elements
     except:
         pass
     st.write(f"observation:{name}")
