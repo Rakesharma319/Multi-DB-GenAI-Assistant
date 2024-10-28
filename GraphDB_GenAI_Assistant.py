@@ -14,8 +14,6 @@ os.environ["NEO4J_URI"]=NEO4J_URI
 os.environ["NEO4J_USERNAME"]=NEO4J_USERNAME
 os.environ["NEO4J_PASSWORD"]=NEO4J_PASSWORD
 
-submitted = st.form_submit_button("Submit")
-
 if st.button("Login"):
     from langchain_community.graphs import Neo4jGraph
     graph=Neo4jGraph(
