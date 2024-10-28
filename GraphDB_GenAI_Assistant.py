@@ -141,10 +141,10 @@ if st.button("Login"):
           Answer: Your final answer and comment for the question
           <</Template>>
           """
-          if st.button("Enter"):
-            model = genai.GenerativeModel('gemini-1.5-flash')
-            response = model.generate_content(CYPHER_GENERATION_TEMPLATE)
-            llm_response = response.text
-            display_output(llm_response)
+          # if st.button("Enter"):
+          model = genai.GenerativeModel('gemini-1.5-flash')
+          response = model.generate_content(CYPHER_GENERATION_TEMPLATE)
+          llm_response = response.text
+          display_output(llm_response)
     else:
         st.write("Check DB Connection")
