@@ -10,10 +10,6 @@ NEO4J_PASSWORD = st.text_input("Enter NEO4J_PASSWORD",type="password")
 st.write(NEO4J_URI)
 st.write(NEO4J_USERNAME)
 
-os.environ["NEO4J_URI"]=NEO4J_URI
-os.environ["NEO4J_USERNAME"]=NEO4J_USERNAME
-os.environ["NEO4J_PASSWORD"]=NEO4J_PASSWORD
-
 # function to display llm responce
 
 def display_output(responce):
@@ -66,6 +62,9 @@ def display_output(responce):
       st.write(action3)
 
 if st.button("Login"):
+    os.environ["NEO4J_URI"]=NEO4J_URI
+    os.environ["NEO4J_USERNAME"]=NEO4J_USERNAME
+    os.environ["NEO4J_PASSWORD"]=NEO4J_PASSWORD
     from langchain_community.graphs import Neo4jGraph
     graph=Neo4jGraph(
         url=NEO4J_URI,
