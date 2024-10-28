@@ -25,6 +25,6 @@ if st.button("Login"):
     schema = graph.schema
     
     if schema:
-        st.write(schema)
+        st.write("Database Connection Success!!")
     else:
         st.write("Check DB Connection")
