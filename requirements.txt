@@ -5,3 +5,5 @@ streamlit
 IPython
 matplotlib
 plotly
+langchain
+langchain-community
