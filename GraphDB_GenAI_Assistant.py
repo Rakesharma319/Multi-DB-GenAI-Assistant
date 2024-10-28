@@ -20,7 +20,6 @@ submitted = st.form_submit_button("Submit")
 
 if submitted:
     from langchain_community.graphs import Neo4jGraph
-
     graph=Neo4jGraph(
         url=NEO4J_URI,
         username=NEO4J_USERNAME,
@@ -30,6 +29,6 @@ if submitted:
     schema = graph.schema
     
     if schema:
-    st.write(schema)
+        st.write(schema)
     else:
-    st.write("Check DB Connection")
+        st.write("Check DB Connection")
