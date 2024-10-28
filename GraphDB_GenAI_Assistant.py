@@ -1,7 +1,7 @@
 import streamlit as st
 import os
 
-st.write("The current movie title is", title)
+st.title("🦜🔗 Quickstart App")
 
 NEO4J_URI = st.text_input("Enter NEO4J_URI",key="placeholder")
 NEO4J_USERNAME = st.text_input("Enter NEO4J_USERNAME",key="placeholder")
