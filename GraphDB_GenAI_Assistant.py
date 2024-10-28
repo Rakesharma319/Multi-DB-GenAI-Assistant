@@ -3,9 +3,9 @@ import os
 
 st.title("🦜🔗 Quickstart App")
 
-NEO4J_URI = st.text_input("Enter NEO4J_URI",key="URI")
-NEO4J_USERNAME = st.text_input("Enter NEO4J_USERNAME",key="Username")
-NEO4J_PASSWORD = st.text_input("Enter NEO4J_PASSWORD",key="placeholder",type="password")
+NEO4J_URI = st.text_input("Enter NEO4J_URI")
+NEO4J_USERNAME = st.text_input("Enter NEO4J_USERNAME")
+NEO4J_PASSWORD = st.text_input("Enter NEO4J_PASSWORD",type="password")
 
 st.write(NEO4J_URI)
 st.write(NEO4J_USERNAME)
