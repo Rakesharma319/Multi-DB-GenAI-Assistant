@@ -7,8 +7,8 @@ NEO4J_URI = st.text_input("Enter NEO4J_URI")
 NEO4J_USERNAME = st.text_input("Enter NEO4J_USERNAME")
 NEO4J_PASSWORD = st.text_input("Enter NEO4J_PASSWORD",type="password")
 
-st.write(st.session_state.NEO4J_URI)
-st.write(st.session_state.NEO4J_USERNAME)
+st.write(NEO4J_URI)
+st.write(NEO4J_USERNAME)
 
 # function to display llm responce
 
