@@ -92,7 +92,7 @@ def display_output(llm_response):
 
     if "Thought 1" in action3:
       st.write(action3)
-      st.code(python_code,language="python")
+      st.code(python_cod1e,language="python")
       exec(python_code1,locals())
 
     if "Thought 2" in action3:
