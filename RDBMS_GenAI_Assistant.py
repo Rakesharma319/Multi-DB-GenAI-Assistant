@@ -308,7 +308,8 @@ def rdbms_main():
                     time.sleep(8)  # sleep for 8 seconds
                     print(e)
         
-        display_output(response)
+        
+    display_output(response)
     
     else:
         st.error("Please Ask Question")
