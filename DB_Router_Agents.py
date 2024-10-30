@@ -2,9 +2,9 @@
 # from GraphDB_GenAI_Assistant import GraphDB_main
 import streamlit as st
 
+st.title("🦜🔗 Database Router Agents GenAI Assistant")
 col1, col2 = st.columns(2)
 
-st.title("🦜🔗 Database Router Agents GenAI Assistant")
 
 with col1:
   genre = st.radio(
