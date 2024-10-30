@@ -40,7 +40,7 @@ def display_output(responce):
     import pandas as pd
     uri = NEO4J_URI
     username = NEO4J_USERNAME
-    password = userdata.get('NEO4J_PASSWORD')
+    password = NEO4J_PASSWORD
     graph=Neo4jGraph(
     url=NEO4J_URI,
     username=NEO4J_USERNAME,
