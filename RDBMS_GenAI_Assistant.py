@@ -9,8 +9,7 @@ import streamlit as st
 import plotly.express as px
 import plotly.graph_objs as go
 from plotly.graph_objs import Figure
-import datetime
-
+import time
 import sqlite3
 import pandas as pd
 conn = sqlite3.connect('Chinook.db')
