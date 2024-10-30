@@ -72,7 +72,7 @@ def display_output(llm_response):
 
   def show(data):
     if type(data) is Figure:
-      data.show()
+      show(data)
     else:
       print(data)
 
