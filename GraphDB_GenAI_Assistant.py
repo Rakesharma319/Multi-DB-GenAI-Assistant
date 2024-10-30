@@ -61,20 +61,19 @@ def display_output(responce):
     if "Answer" in action3:
       st.write(action3)
 
-if st.button("Login"):
-	os.environ["NEO4J_URI"]=NEO4J_URI
-	os.environ["NEO4J_USERNAME"]=NEO4J_USERNAME
-	os.environ["NEO4J_PASSWORD"]=NEO4J_PASSWORD
+os.environ["NEO4J_URI"]=NEO4J_URI
+os.environ["NEO4J_USERNAME"]=NEO4J_USERNAME
+os.environ["NEO4J_PASSWORD"]=NEO4J_PASSWORD
 
-	from langchain_community.graphs import Neo4jGraph
+from langchain_community.graphs import Neo4jGraph
   
-	st.session_state.graph=Neo4jGraph(
-		url=NEO4J_URI,
-		username=NEO4J_USERNAME,
-		password=NEO4J_PASSWORD,
-	)
+graph=Neo4jGraph(
+    url=NEO4J_URI,
+    username=NEO4J_USERNAME,
+    password=NEO4J_PASSWORD,
+)
  
-	schema = graph.schema
+schema = graph.schema
 
 if schema:
     st.write("Database Connection Success!!")
