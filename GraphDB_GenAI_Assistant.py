@@ -72,7 +72,7 @@ def display_output(llm_response):
 
   def show(data):
     if type(data) is Figure:
-      st.bar_chart(data)
+      st.plotly_chart(data)
     else:
       print(data)
 
