@@ -25,6 +25,20 @@ schema = graph.schema
 # st.session_state.NEO4J_USERNAME = st.sidebar.text_input("Enter NEO4J_USERNAME")
 # st.session_state.NEO4J_PASSWORD = st.sidebar.text_input("Enter NEO4J_PASSWORD",type="password")
 
+os.environ["NEO4J_URI"]=NEO4J_URI
+os.environ["NEO4J_USERNAME"]=NEO4J_USERNAME
+os.environ["NEO4J_PASSWORD"]=NEO4J_PASSWORD
+
+
+if schema:
+    st.write("Database Connection Success!!")
+else:
+    st.write("Check DB Connection")
+    
+question=st.text_input("Ask Question")
+
+google_api_key = st.sidebar.text_input('Google API Key', type='password')
+
 # function to display llm responce
 def display_output(llm_response):
   import pandas as pd
@@ -88,20 +102,6 @@ def display_output(llm_response):
       print("\n")
     if "Answer" in action3:
       print(action3)
-
-os.environ["NEO4J_URI"]=NEO4J_URI
-os.environ["NEO4J_USERNAME"]=NEO4J_USERNAME
-os.environ["NEO4J_PASSWORD"]=NEO4J_PASSWORD
-
-
-if schema:
-    st.write("Database Connection Success!!")
-else:
-    st.write("Check DB Connection")
-    
-question=st.text_input("Ask Question")
-
-google_api_key = st.sidebar.text_input('Google API Key', type='password')
 
 
 CYPHER_GENERATION_TEMPLATE = f"""
