@@ -6,12 +6,12 @@ import os
 
 st.title("🦜🔗 Graph Database GenAI Assistant")
 
-NEO4J_URI = st.sidebar.text_input("Enter NEO4J_URI")
-NEO4J_USERNAME = st.sidebar.text_input("Enter NEO4J_USERNAME")
-NEO4J_PASSWORD = st.sidebar.text_input("Enter NEO4J_PASSWORD",type="password")
+st.session_state.NEO4J_URI = st.sidebar.text_input("Enter NEO4J_URI")
+st.session_state.NEO4J_USERNAME = st.sidebar.text_input("Enter NEO4J_USERNAME")
+st.session_state.NEO4J_PASSWORD = st.sidebar.text_input("Enter NEO4J_PASSWORD",type="password")
 
-st.write(NEO4J_URI)
-st.write(NEO4J_USERNAME)
+st.write(st.session_state.NEO4J_URI)
+st.write(st.session_state.NEO4J_USERNAME)
 
 # function to display llm responce
 
@@ -72,13 +72,13 @@ def display_output(responce):
 
 from langchain_community.graphs import Neo4jGraph
   
-graph=Neo4jGraph(
-    url=NEO4J_URI,
-    username=NEO4J_USERNAME,
-    password=NEO4J_PASSWORD,
+st.session_state.graph=Neo4jGraph(
+    url=st.session_state.NEO4J_URI,
+    username=st.session_state.NEO4J_USERNAME,
+    password=st.session_state.NEO4J_PASSWORD,
 )
  
-schema = graph.schema
+schema = st.session_state.graph.schema
 
 if schema:
     st.write("Database Connection Success!!")
