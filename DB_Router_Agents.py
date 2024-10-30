@@ -17,10 +17,10 @@ with col1:
   )
 
 with col2:
-  if genre == "Relational_Database":
+  if genre == "***Relational_Database***":
     st.write("You selected Relational Database.")
     # rdbms_main()
-  elif genre == "Graph_Database":
+  elif genre == "***Graph_Database***":
     st.write("You selected Graph Database.")
     # GraphDB_main()
   else:
