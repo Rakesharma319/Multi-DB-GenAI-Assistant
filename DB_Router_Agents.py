@@ -15,9 +15,9 @@ genre = st.radio(
 
 if genre == "Relational_Database":
     st.write("You selected Relational Database.")
-    rdbms_main()
+    # rdbms_main()
 elif genre == "Graph_Database":
     st.write("You selected Graph Database.")
-    GraphDB_main()
+    # GraphDB_main()
 else:
     st.write("Not yet Implemented.")
