@@ -73,6 +73,7 @@ if st.button("Login"):
 		username=st.session_state.NEO4J_USERNAME,
 		password=st.session_state.NEO4J_PASSWORD,
 	)
+ 
 	st.session_state.schema = st.session_state.graph.schema
 
 if st.session_state.schema:
