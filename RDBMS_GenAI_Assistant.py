@@ -295,6 +295,7 @@ def rdbms_main():
         #display_output(response)
         
         n = 0
+        response = ""
         try:
             response = get_final_output_from_model()
         except Exception as e:
