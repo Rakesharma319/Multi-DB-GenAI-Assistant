@@ -134,7 +134,7 @@ def get_table_schema(tables_List):
 # function to extract SQL code from model generated text response
 
 
-def get_final_output_from_model():
+def get_final_output_from_model(prompt_to_get_sqlwitanalysis):
   model = genai.GenerativeModel('gemini-1.5-flash')
   response = model.generate_content(prompt_to_get_sqlwitanalysis)
   SQL_Code = response.text
@@ -292,21 +292,19 @@ if user_input:
 	#response = get_final_output_from_model()
 	#display_output(response)
 	
-
-
 else:
 	st.error("Please Ask Question")
 	
 
 def rdbms_main():
-  n = 0
+    n = 0
 	try:
-        response = get_final_output_from_model()
+        response = get_final_output_from_model(prompt_to_get_sqlwitanalysis)
 	except Exception as e:
         time.sleep(8)  # sleep for 8 seconds
         while n < 5:
            	try:
-               	response = get_final_output_from_model()
+               	response = get_final_output_from_model(prompt_to_get_sqlwitanalysis)
            	except Exception as e:
                	n += 1
                	print(
