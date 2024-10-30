@@ -1,5 +1,5 @@
-from RDBMS_GenAI_Assistant import rdbms_main
-from GraphDB_GenAI_Assistant import GraphDB_main
+# from RDBMS_GenAI_Assistant import rdbms_main
+# from GraphDB_GenAI_Assistant import GraphDB_main
 import streamlit as st
 
 st.title("🦜🔗 Database Router Agents GenAI Assistant")
