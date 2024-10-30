@@ -73,7 +73,7 @@ def text_to_df(Table_List):
   df = pd.DataFrame(data_list, columns=['name'])
   return df
 
-def get_table_list_through_model():
+def get_table_list_through_model(prompt_tableList):
   #make connection to gemini-1.5-flash model
   model = genai.GenerativeModel('gemini-1.5-flash')
   response = model.generate_content(prompt_tableList)
@@ -232,7 +232,7 @@ def rdbms_main():
         Strictly only return list of table_name in pandas list format. No any other text.
         """
         
-        filtered_table_list = get_table_list_through_model()
+        filtered_table_list = get_table_list_through_model(prompt_tableList)
         table_info=get_table_schema(filtered_table_list)
         
         prompt_to_get_sqlwitanalysis = f"""
