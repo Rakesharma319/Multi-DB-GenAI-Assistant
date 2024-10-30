@@ -8,8 +8,8 @@ import os
 
 st.title("🦜🔗 Graph Database GenAI Assistant")
 
-st.session_state.NEO4J_URI = st.sidebar.text_input("Enter NEO4J_URI")
-# st.session_state.NEO4J_URI = "neo4j+s://cc339269.databases.neo4j.io"
+# st.session_state.NEO4J_URI = st.sidebar.text_input("Enter NEO4J_URI")
+st.session_state.NEO4J_URI = "neo4j+s://cc339269.databases.neo4j.io"
 st.session_state.NEO4J_USERNAME = st.sidebar.text_input("Enter NEO4J_USERNAME")
 st.session_state.NEO4J_PASSWORD = st.sidebar.text_input("Enter NEO4J_PASSWORD",type="password")
 
