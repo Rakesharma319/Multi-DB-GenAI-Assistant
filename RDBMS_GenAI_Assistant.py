@@ -140,22 +140,6 @@ def get_final_output_from_model():
   SQL_Code = response.text
   return response.text
 
-
-prompt_tableList = f"""You are an expert analyst,
-Analyse the user_input and table_name Then Return the names of ALL the SQL tables that MIGHT be relevant to the user question. \
-The tables are:
-{table_names}
-Remember to include ALL POTENTIALLY RELEVANT tables, even if you're not sure that they're needed.
-
-Here is user input:
-{user_input}
-
-Strictly only return list of table_name in pandas list format. No any other text.
-"""
-
-
-
-
 # function to display llm responce
 
 def display_output(responce):
@@ -234,6 +218,18 @@ def rdbms_main():
     if user_input:
         
         table_names = get_all_table_names()
+        
+        prompt_tableList = f"""You are an expert analyst,
+        Analyse the user_input and table_name Then Return the names of ALL the SQL tables that MIGHT be relevant to the user question. \
+        The tables are:
+        {table_names}
+        Remember to include ALL POTENTIALLY RELEVANT tables, even if you're not sure that they're needed.
+        
+        Here is user input:
+        {user_input}
+        
+        Strictly only return list of table_name in pandas list format. No any other text.
+        """
         
         filtered_table_list = get_table_list_through_model(prompt_tableList)
         table_info=get_table_schema(filtered_table_list)
