@@ -33,11 +33,11 @@ def display_output(responce):
     st.write(data )
 
   def show(data):
-    if type(data) is Figure:
-      show(data)
-    else:
-      st.write(data)
-
+     if type(data) is Figure:
+       st.plotly_chart(data)
+     else:
+       st.write(data)
+  
   actions = responce.split("```")[1::2]
 
   python_actions = [action for action in actions if "python" in action]
