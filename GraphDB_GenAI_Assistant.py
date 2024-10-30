@@ -76,9 +76,9 @@ os.environ["NEO4J_PASSWORD"]=st.session_state.NEO4J_PASSWORD
 
   
 st.session_state.graph=Neo4jGraph(
-    url=st.session_state.NEO4J_URI,
-    username=st.session_state.NEO4J_USERNAME,
-    password=st.session_state.NEO4J_PASSWORD,
+    url=os.environ["NEO4J_URI"],
+    username=os.environ["NEO4J_USERNAME"],
+    password=os.environ["NEO4J_PASSWORD"],
 )
  
 schema = st.session_state.graph.schema
