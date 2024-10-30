@@ -67,9 +67,9 @@ if st.button("Login"):
     os.environ["NEO4J_PASSWORD"]=st.session_state.NEO4J_PASSWORD
     from langchain_community.graphs import Neo4jGraph
     graph=Neo4jGraph(
-        url=NEO4J_URI,
-        username=NEO4J_USERNAME,
-        password=NEO4J_PASSWORD,
+        url=st.session_state.NEO4J_URI,
+        username=st.session_state.NEO4J_USERNAME,
+        password=st.session_state.NEO4J_PASSWORD,
     )
     
     st.session_state.schema = graph.schema
