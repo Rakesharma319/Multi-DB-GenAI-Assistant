@@ -72,28 +72,28 @@ if st.button("Login"):
         password=st.session_state.NEO4J_PASSWORD,
     )
     
-st.session_state.schema = graph.schema
+schema = graph.schema
     
 if st.session_state.schema:
     st.write("Database Connection Success!!")
 else:
     st.write("Check DB Connection")
     
-st.session_state.question=st.text_input("Ask Question")
-if st.button("Submit"):
-    CYPHER_GENERATION_TEMPLATE = f"""
+question=st.text_input("Ask Question")
+
+CYPHER_GENERATION_TEMPLATE = f"""
 You are a smart AI assistant to help answer business questions based on analyzing data.
 You can plan solving the question with one or multiple thought step. 
 At each thought step, you can write python code to analyze data to assist you. Observe what you get at each step to plan for the next step.
 
-Here is the user question: {st.session_state.question}
+Here is the user question: {question}
 
 You are given following utilities to help you retrieve data and communicate your result to end user.
 1. execute_cypher_query(cypher_query: str): A Python function can query data from the Neo4j given a query which you need to create. 
 The query has to be syntactically correct for Neo4j and Use only the provided relationship types and properties in the schema.
 Use alias when using the WITH keyword in cypher query.
 Do not use any other relationship types or properties that are not provided.
-Schema:{st.session_state.schema}. The execute_cypher_query function returns a Python pandas dataframe contain the results of the query.
+Schema:{schema}. The execute_cypher_query function returns a Python pandas dataframe contain the results of the query.
 2. Use plotly library for data visualization.
     - When ever you try to read column data from the panadas dataframe, use column name as m.col_name instead only col_name.
     - Example: fig = px.bar(step1_df, x="m.title", y="m.imdbRating", title="Top 10 Movies by IMDb Ratings")
@@ -144,9 +144,8 @@ Answer: Your final answer and comment for the question
 <</Template>>
 """
 
-if st.session_state.question:
-    model = genai.GenerativeModel('gemini-1.5-flash')
-    response = model.generate_content(CYPHER_GENERATION_TEMPLATE)
-    llm_response = response.text
-    display_output(llm_response)
+model = genai.GenerativeModel('gemini-1.5-flash')
+response = model.generate_content(CYPHER_GENERATION_TEMPLATE)
+llm_response = response.text
+display_output(llm_response)
 
