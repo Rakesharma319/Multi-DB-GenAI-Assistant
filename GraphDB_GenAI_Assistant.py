@@ -62,16 +62,18 @@ def display_output(responce):
       st.write(action3)
 
 if st.button("Login"):
-    os.environ["NEO4J_URI"]=st.session_state.NEO4J_URI
-    os.environ["NEO4J_USERNAME"]=st.session_state.NEO4J_USERNAME
-    os.environ["NEO4J_PASSWORD"]=st.session_state.NEO4J_PASSWORD
-    from langchain_community.graphs import Neo4jGraph
-    graph=Neo4jGraph(
-        url=st.session_state.NEO4J_URI,
-        username=st.session_state.NEO4J_USERNAME,
-        password=st.session_state.NEO4J_PASSWORD,
-    )
+  os.environ["NEO4J_URI"]=st.session_state.NEO4J_URI
+  os.environ["NEO4J_USERNAME"]=st.session_state.NEO4J_USERNAME
+  os.environ["NEO4J_PASSWORD"]=st.session_state.NEO4J_PASSWORD
+
+  from langchain_community.graphs import Neo4jGraph
   
+  graph=Neo4jGraph(
+      url=st.session_state.NEO4J_URI,
+      username=st.session_state.NEO4J_USERNAME,
+      password=st.session_state.NEO4J_PASSWORD,
+   )
+
 
 st.session_state.schema = graph.schema
 
