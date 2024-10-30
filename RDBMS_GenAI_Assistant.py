@@ -214,9 +214,10 @@ This is an experimental assistant that requires Gemini API access. The app demon
 """
 )
 
-user_input = st.sidebar.text_area("Ask me a question")
+#user_input = st.sidebar.text_area("Ask me a question")
 
 def rdbms_main():
+    user_input = st.sidebar.text_area("Ask me a question")
     if user_input:
         table_names = get_all_table_names()
         
