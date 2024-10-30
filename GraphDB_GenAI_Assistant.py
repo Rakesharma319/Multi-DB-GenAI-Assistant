@@ -68,12 +68,12 @@ if st.button("Login"):
 
 	from langchain_community.graphs import Neo4jGraph
   
-	graph=Neo4jGraph(
+	st.session_state.graph=Neo4jGraph(
 		url=st.session_state.NEO4J_URI,
 		username=st.session_state.NEO4J_USERNAME,
 		password=st.session_state.NEO4J_PASSWORD,
 	)
-	st.session_state.schema = graph.schema
+	st.session_state.schema = st.session_state.graph.schema
 
 if st.session_state.schema:
     st.write("Database Connection Success!!")
