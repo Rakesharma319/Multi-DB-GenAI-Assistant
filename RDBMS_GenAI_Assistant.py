@@ -214,10 +214,9 @@ This is an experimental assistant that requires Gemini API access. The app demon
 """
 )
 
-#user_input = st.sidebar.text_area("Ask me a question")
+user_input = st.sidebar.text_area("Ask me a question")
 
 def rdbms_main():
-    user_input = st.sidebar.text_area("Ask me a question")
     if user_input:
         table_names = get_all_table_names()
         
@@ -232,6 +231,7 @@ def rdbms_main():
     
         Strictly only return list of table_name in pandas list format. No any other text.
         """
+        
         filtered_table_list = get_table_list_through_model()
         table_info=get_table_schema(filtered_table_list)
         
