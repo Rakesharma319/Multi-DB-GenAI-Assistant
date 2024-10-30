@@ -5,9 +5,9 @@ import os
 
 st.title("🦜🔗 Graph Database GenAI Assistant")
 
-NEO4J_URI = st.text_input("Enter NEO4J_URI")
-NEO4J_USERNAME = st.text_input("Enter NEO4J_USERNAME")
-NEO4J_PASSWORD = st.text_input("Enter NEO4J_PASSWORD",type="password")
+NEO4J_URI = st.sidebar.text_input("Enter NEO4J_URI")
+NEO4J_USERNAME = st.sidebar.text_input("Enter NEO4J_USERNAME")
+NEO4J_PASSWORD = st.sidebar.text_input("Enter NEO4J_PASSWORD",type="password")
 
 st.write(NEO4J_URI)
 st.write(NEO4J_USERNAME)
