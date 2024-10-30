@@ -67,14 +67,14 @@ def display_output(llm_response):
       data = data[:5]  # limit the print out observation to 5 elements
     except:
       pass
-    print(f"observation:{name}")
-    print(data )
+    st.write(f"observation:{name}")
+    st.write(data )
 
   def show(data):
     if type(data) is Figure:
       st.plotly_chart(data)
     else:
-      print(data)
+      st.write(data)
 
   actions = llm_response.split("```")[1::2]
 
@@ -88,20 +88,20 @@ def display_output(llm_response):
   actions3 = llm_response.split('\n')
   for action3 in actions3:
     if "Question" in action3:
-      print(action3,"\n")
+      st.write(action3,"\n")
 
     if "Thought 1" in action3:
-      print(action3)
-      print(python_code1)
+      st.write(action3)
+      st.write(python_code1)
       exec(python_code1,locals())
-      print("\n")
+
     if "Thought 2" in action3:
-      print(action3)
-      print(python_code2)
+      st.write(action3)
+      st.write(python_code2)
       exec(python_code2,locals())
-      print("\n")
+
     if "Answer" in action3:
-      print(action3)
+      st.write(action3)
 
 
 CYPHER_GENERATION_TEMPLATE = f"""
@@ -173,6 +173,6 @@ genai.configure(api_key = google_api_key)
 model = genai.GenerativeModel('gemini-1.5-flash')
 response = model.generate_content(CYPHER_GENERATION_TEMPLATE)
 llm_response = response.text
-st.write(llm_response)
-# display_output(llm_response)
+# st.write(llm_response)
+display_output(llm_response)
 
