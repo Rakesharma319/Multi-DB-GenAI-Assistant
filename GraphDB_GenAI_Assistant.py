@@ -8,26 +8,46 @@ import os
 
 st.title("🦜🔗 Graph Database GenAI Assistant")
 
-# st.session_state.NEO4J_URI = st.sidebar.text_input("Enter NEO4J_URI")
-st.session_state.NEO4J_URI = "neo4j+s://cc339269.databases.neo4j.io"
-st.session_state.NEO4J_USERNAME = st.sidebar.text_input("Enter NEO4J_USERNAME")
-st.session_state.NEO4J_PASSWORD = st.sidebar.text_input("Enter NEO4J_PASSWORD",type="password")
+NEO4J_URI=st.secrets["NEO4J_URI"]
+NEO4J_USERNAME=st.secrets["NEO4J_USERNAME"]
+NEO4J_PASSWORD=st.sidebar.text_input("Enter NEO4J_PASSWORD",type="password")
 
-st.write(st.session_state.NEO4J_URI)
-st.write(st.session_state.NEO4J_USERNAME)
+graph=Neo4jGraph(
+    url=NEO4J_URI,
+    username=NEO4J_USERNAME,
+    password=NEO4J_PASSWORD,
+)
+ 
+schema = graph.schema
+
+# # st.session_state.NEO4J_URI = st.sidebar.text_input("Enter NEO4J_URI")
+# st.session_state.NEO4J_URI = "neo4j+s://cc339269.databases.neo4j.io"
+# st.session_state.NEO4J_USERNAME = st.sidebar.text_input("Enter NEO4J_USERNAME")
+# st.session_state.NEO4J_PASSWORD = st.sidebar.text_input("Enter NEO4J_PASSWORD",type="password")
 
 # function to display llm responce
-
 def display_output(responce):
   import pandas as pd
   import matplotlib.pyplot as plt
   import numpy as np
 
+  # def execute_cypher_query(cyphercode):
+  #   import pandas as pd
+  #   DFrmae=pd.DataFrame(graph.query(cyphercode))
+  #   return DFrmae
+  
   def execute_cypher_query(cyphercode):
     import pandas as pd
-    DFrmae=pd.DataFrame(st.session_state.graph.query(cyphercode))
-    return DFrmae
-
+    uri = NEO4J_URI
+    username = NEO4J_USERNAME
+    password = userdata.get('NEO4J_PASSWORD')
+    graph=Neo4jGraph(
+    url=NEO4J_URI,
+    username=NEO4J_USERNAME,
+    password=NEO4J_PASSWORD,)
+    Pd_df = pd.DataFrame(graph.query(cyphercode))
+    return Pd_df
+  
   def observe(name, data):
     try:
       data = data[:5]  # limit the print out observation to 5 elements
@@ -69,19 +89,10 @@ def display_output(responce):
     if "Answer" in action3:
       print(action3)
 
-os.environ["NEO4J_URI"]=st.session_state.NEO4J_URI
-os.environ["NEO4J_USERNAME"]=st.session_state.NEO4J_USERNAME
-os.environ["NEO4J_PASSWORD"]=st.session_state.NEO4J_PASSWORD
+os.environ["NEO4J_URI"]=NEO4J_URI
+os.environ["NEO4J_USERNAME"]=NEO4J_USERNAME
+os.environ["NEO4J_PASSWORD"]=NEO4J_PASSWORD
 
-
-  
-st.session_state.graph=Neo4jGraph(
-    url=os.environ["NEO4J_URI"],
-    username=os.environ["NEO4J_USERNAME"],
-    password=os.environ["NEO4J_PASSWORD"],
-)
- 
-schema = st.session_state.graph.schema
 
 if schema:
     st.write("Database Connection Success!!")
@@ -91,7 +102,7 @@ else:
 question=st.text_input("Ask Question")
 
 google_api_key = st.sidebar.text_input('Google API Key', type='password')
-genai.configure(api_key = google_api_key)
+
 
 CYPHER_GENERATION_TEMPLATE = f"""
 You are a smart AI assistant to help answer business questions based on analyzing data.
@@ -158,6 +169,7 @@ Answer: Your final answer and comment for the question
 
 st.write(CYPHER_GENERATION_TEMPLATE)
 
+genai.configure(api_key = google_api_key)
 model = genai.GenerativeModel('gemini-1.5-flash')
 response = model.generate_content(CYPHER_GENERATION_TEMPLATE)
 llm_response = response.text
