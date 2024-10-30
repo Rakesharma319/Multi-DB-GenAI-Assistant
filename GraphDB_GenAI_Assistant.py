@@ -74,7 +74,7 @@ if st.button("Login"):
     
     st.session_state.schema = st.session_state.graph.schema
     
-    if st.session_state.schema:
+    while st.session_state.schema:
         st.write("Database Connection Success!!")
         question=st.text_input("Ask Question")
         if question:
