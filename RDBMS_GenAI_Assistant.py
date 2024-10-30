@@ -231,10 +231,10 @@ def rdbms_main():
     
         Strictly only return list of table_name in pandas list format. No any other text.
         """
-        
+	    
         filtered_table_list = get_table_list_through_model(prompt_tableList)
         table_info=get_table_schema(filtered_table_list)
-        
+	    
         prompt_to_get_sqlwitanalysis = f"""
         You are a smart AI assistant to help answer business questions based on analyzing data.
         You can plan solving the question with one or multiple thought step. At each thought step, you can write python code to analyze data to assist you. Observe what you get at each step to plan for the next step.
@@ -288,7 +288,6 @@ def rdbms_main():
         step2_df is displayed here
         Answer: Your final answer and comment for the question
         <</Template>>
-        
         """
         
         response = get_final_output_from_model()
