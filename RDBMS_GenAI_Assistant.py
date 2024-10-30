@@ -9,7 +9,7 @@ import streamlit as st
 import plotly.express as px
 import plotly.graph_objs as go
 from plotly.graph_objs import Figure
-
+import time
 import sqlite3
 import pandas as pd
 conn = sqlite3.connect('Chinook.db')
@@ -73,7 +73,7 @@ def text_to_df(Table_List):
   df = pd.DataFrame(data_list, columns=['name'])
   return df
 
-def get_table_list_through_model():
+def get_table_list_through_model(prompt_tableList):
   #make connection to gemini-1.5-flash model
   model = genai.GenerativeModel('gemini-1.5-flash')
   response = model.generate_content(prompt_tableList)
@@ -134,15 +134,29 @@ def get_table_schema(tables_List):
 # function to extract SQL code from model generated text response
 
 
-def get_final_output_from_model(prompt_to_get_sqlwitanalysis):
+def get_final_output_from_model():
   model = genai.GenerativeModel('gemini-1.5-flash')
   response = model.generate_content(prompt_to_get_sqlwitanalysis)
   SQL_Code = response.text
   return response.text
 
 
-# function to display llm responce
+prompt_tableList = f"""You are an expert analyst,
+Analyse the user_input and table_name Then Return the names of ALL the SQL tables that MIGHT be relevant to the user question. \
+The tables are:
+{table_names}
+Remember to include ALL POTENTIALLY RELEVANT tables, even if you're not sure that they're needed.
 
+Here is user input:
+{user_input}
+
+Strictly only return list of table_name in pandas list format. No any other text.
+"""
+
+
+
+
+# function to display llm responce
 
 def display_output(responce):
   import sqlite3
@@ -216,104 +230,74 @@ This is an experimental assistant that requires Gemini API access. The app demon
 
 user_input = st.sidebar.text_area("Ask me a question")
 
-if user_input:
-	table_names = get_all_table_names()
-	
-	prompt_tableList = f"""You are an expert analyst,
-	Analyse the user_input and table_name Then Return the names of ALL the SQL tables that MIGHT be relevant to the user question. \
-	The tables are:
-	{table_names}
-	Remember to include ALL POTENTIALLY RELEVANT tables, even if you're not sure that they're needed.
-
-	Here is user input:
-	{user_input}
-
-	Strictly only return list of table_name in pandas list format. No any other text.
-	"""
-	filtered_table_list = get_table_list_through_model()
-	table_info=get_table_schema(filtered_table_list)
-	
-	prompt_to_get_sqlwitanalysis = f"""
-	You are a smart AI assistant to help answer business questions based on analyzing data.
-	You can plan solving the question with one or multiple thought step. At each thought step, you can write python code to analyze data to assist you. Observe what you get at each step to plan for the next step.
-	
-	Here is the user question: {user_input}
-	
-    	You are given following utilities to help you retrieve data and communicate your result to end user.
-    	1. execute_sql_query(sql_query: str): A Python function can query data from the Sqlite3 given a query which you need to create. The query has to be syntactically correct for Sqlite3 and 
-     	only use tables and columns under {table_info}. The execute_sql function returns a Python pandas dataframe contain the results of the query.
-    	2. Use plotly library for data visualization.
-    	3. Use observe(label: str, data: any) utility function to observe data under the label for your evaluation. Use observe() function instead of print() as this is executed in streamlit environment. Due to system limitation, you will only see the first 10 rows of the dataset.
-    	4. To communicate with user, use show() function on data, text and plotly figure. show() is a utility function that can render different types of data to end user. Remember, you don't see data with show(), only user does. You see data with observe()
-        	- If you want to show  user a plotly visualization, then use ```show(fig)`` 
-       		- If you want to show user data which is a text or a pandas dataframe or a list, use ```show(data)```
-        	- Never use print(). User don't see anything with print()
-    	5. Lastly, don't forget to deal with data quality problem. You should apply data imputation technique to deal with missing data or NAN data.
-    	6. Always follow the flow of Thought: , Observation:, Action: and Answer: as in template below strictly. 
-	
-	<<Template>>
-	Question: User Question
-	Thought 1: Your thought here.
-	Action:
-	```python
-	#Import neccessary libraries here
-	import numpy as np
-	#Query some data
-	sql_query = "SOME SQL QUERY"
-	step1_df = execute_sql_query(sql_query)
-	# Replace 0 with NaN. Always have this step
-	step1_df['Some_Column'] = step1_df['Some_Column'].replace(0, np.nan)
-	
-	#observe query result
-	```
-	Observation:
-	step1_df is displayed here
-	Thought 2: Your thought here
-	Action:
-	```python
-	import plotly.express as px
-	#from step1_df, perform some data analysis action to produce step2_df
-	#To see the data for yourself the only way is to use observe()
-	observe("some_label", step2_df) #Always use observe()
-	#Decide to show it to user.
-	fig=px.line(step2_df)
-	#visualize fig object to user.
-	show(fig)
-	#you can also directly display tabular or text data to end user.
-	show(step2_df)
-	```
-	Observation:
-	step2_df is displayed here
-	Answer: Your final answer and comment for the question
-	<</Template>>
-	
-	"""
-	
-	#response = get_final_output_from_model()
-	#display_output(response)
-	
-else:
-	st.error("Please Ask Question")
-	
-
 def rdbms_main():
-	response = get_final_output_from_model(prompt_to_get_sqlwitanalysis)
- #    n = 0
-	# try:
- #        response = get_final_output_from_model(prompt_to_get_sqlwitanalysis)
-	# except Exception as e:
- #        time.sleep(8)  # sleep for 8 seconds
- #        while n < 5:
- #           	try:
- #               	response = get_final_output_from_model(prompt_to_get_sqlwitanalysis)
- #           	except Exception as e:
- #               	n += 1
- #               	print(
- #                  		"error calling open AI, I am retrying 5 attempts , attempt ", n
- #               	)
- #               	time.sleep(8)  # sleep for 8 seconds
- #               	print(e)
-	
-	display_output(response)
+    if user_input:
+        
+        table_names = get_all_table_names()
+        
+        filtered_table_list = get_table_list_through_model(prompt_tableList)
+        table_info=get_table_schema(filtered_table_list)
+                
+        prompt_to_get_sqlwitanalysis = f"""
+        You are a smart AI assistant to help answer business questions based on analyzing data.
+        You can plan solving the question with one or multiple thought step. At each thought step, you can write python code to analyze data to assist you. Observe what you get at each step to plan for the next step.
+        
+        Here is the user question: {user_input}
+        
+            You are given following utilities to help you retrieve data and communicate your result to end user.
+            1. execute_sql_query(sql_query: str): A Python function can query data from the Sqlite3 given a query which you need to create. The query has to be syntactically correct for Sqlite3 and 
+            only use tables and columns under {table_info}. The execute_sql function returns a Python pandas dataframe contain the results of the query.
+            2. Use plotly library for data visualization.
+            3. Use observe(label: str, data: any) utility function to observe data under the label for your evaluation. Use observe() function instead of print() as this is executed in streamlit environment. Due to system limitation, you will only see the first 10 rows of the dataset.
+            4. To communicate with user, use show() function on data, text and plotly figure. show() is a utility function that can render different types of data to end user. Remember, you don't see data with show(), only user does. You see data with observe()
+                - If you want to show  user a plotly visualization, then use ```show(fig)`` 
+                - If you want to show user data which is a text or a pandas dataframe or a list, use ```show(data)```
+                - Never use print(). User don't see anything with print()
+            5. Lastly, don't forget to deal with data quality problem. You should apply data imputation technique to deal with missing data or NAN data.
+            6. Always follow the flow of Thought: , Observation:, Action: and Answer: as in template below strictly. 
+        
+        <<Template>>
+        Question: User Question
+        Thought 1: Your thought here.
+        Action:
+        ```python
+        #Import neccessary libraries here
+        import numpy as np
+        #Query some data
+        sql_query = "SOME SQL QUERY"
+        step1_df = execute_sql_query(sql_query)
+        # Replace 0 with NaN. Always have this step
+        step1_df['Some_Column'] = step1_df['Some_Column'].replace(0, np.nan)
+        
+        #observe query result
+        ```
+        Observation:
+        step1_df is displayed here
+        Thought 2: Your thought here
+        Action:
+        ```python
+        import plotly.express as px
+        #from step1_df, perform some data analysis action to produce step2_df
+        #To see the data for yourself the only way is to use observe()
+        observe("some_label", step2_df) #Always use observe()
+        #Decide to show it to user.
+        fig=px.line(step2_df)
+        #visualize fig object to user.
+        show(fig)
+        #you can also directly display tabular or text data to end user.
+        show(step2_df)
+        ```
+        Observation:
+        step2_df is displayed here
+        Answer: Your final answer and comment for the question
+        <</Template>>
+        
+        """
+        
+        response = get_final_output_from_model()
+        display_output(response)
+
+    else:
+        st.error("Please Ask Question")
 	
 rdbms_main()
