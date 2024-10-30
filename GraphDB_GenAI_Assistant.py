@@ -168,7 +168,7 @@ Answer: Your final answer and comment for the question
 """
 
 # st.write(CYPHER_GENERATION_TEMPLATE)
-def main():
+def GraphDB_main():
     genai.configure(api_key = google_api_key)
     model = genai.GenerativeModel('gemini-1.5-flash')
     response = model.generate_content(CYPHER_GENERATION_TEMPLATE)
@@ -176,4 +176,4 @@ def main():
     # st.write(llm_response)
     display_output(llm_response)
 
-main()
+GraphDB_main()
