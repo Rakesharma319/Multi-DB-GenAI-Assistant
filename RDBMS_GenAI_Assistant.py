@@ -311,7 +311,7 @@ def rdbms_main():
                             print(e)
 	
         #display_output(response)
-        st.write(prompt_tableList)
+        st.write(filtered_table_list)
     else:
         st.error("Please Ask Question")
 	
