@@ -5,7 +5,6 @@ import streamlit as st
 st.title("🦜🔗 Database Router Agents GenAI Assistant")
 col1, col2 = st.columns(2)
 
-
 with col1:
   genre = st.radio(
     "Choose Databse to Chat",
