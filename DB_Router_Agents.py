@@ -1,5 +1,5 @@
 from RDBMS_GenAI_Assistant import rdbms_main
-from GraphDB_GenAI_Assistant import GraphDB_main
+from GraphDB_GenAI_Assistant import graphDB_main
 import streamlit as st
 
 st.title("🦜🔗 Database Router Agents GenAI Assistant")
@@ -22,7 +22,7 @@ with col2:
     
   elif genre == "***Graph_Database***":
     st.write("You selected Graph Database.")
-    GraphDB_main()
+    graphDB_main()
     
   else:
     st.write("Not yet Implemented.")
