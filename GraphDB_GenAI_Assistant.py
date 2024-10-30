@@ -1,5 +1,6 @@
 import streamlit as st
 import google.generativeai as genai
+from plotly.graph_objects import Figure
 
 import os
 
@@ -18,7 +19,7 @@ def display_output(responce):
   import pandas as pd
   import matplotlib.pyplot as plt
   import numpy as np
-  
+
   def execute_cypher_query(cyphercode):
     import pandas as pd
     DFrmae=pd.DataFrame(graph.query(cyphercode))
@@ -29,15 +30,15 @@ def display_output(responce):
       data = data[:5]  # limit the print out observation to 5 elements
     except:
       pass
-    st.write(f"observation:{name}")
-    st.write(data )
+    print(f"observation:{name}")
+    print(data )
 
   def show(data):
-     if type(data) is Figure:
-       st.plotly_chart(data)
-     else:
-       st.write(data)
-  
+    if type(data) is Figure:
+      data.show()
+    else:
+      print(data)
+
   actions = responce.split("```")[1::2]
 
   python_actions = [action for action in actions if "python" in action]
@@ -50,18 +51,20 @@ def display_output(responce):
   actions3 = responce.split('\n')
   for action3 in actions3:
     if "Question" in action3:
-      st.write(action3,"\n")
+      print(action3,"\n")
 
     if "Thought 1" in action3:
-      st.write(action3)
-      st.write(python_code1)
+      print(action3)
+      print(python_code1)
       exec(python_code1,locals())
+      print("\n")
     if "Thought 2" in action3:
-      st.write(action3)
-      st.write(python_code2)
+      print(action3)
+      print(python_code2)
       exec(python_code2,locals())
+      print("\n")
     if "Answer" in action3:
-      st.write(action3)
+      print(action3)
 
 os.environ["NEO4J_URI"]=NEO4J_URI
 os.environ["NEO4J_USERNAME"]=NEO4J_USERNAME
