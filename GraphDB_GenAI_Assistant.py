@@ -22,7 +22,7 @@ def display_output(responce):
 
   def execute_cypher_query(cyphercode):
     import pandas as pd
-    DFrmae=pd.DataFrame(graph.query(cyphercode))
+    DFrmae=pd.DataFrame(st.session_state.graph.query(cyphercode))
     return DFrmae
 
   def observe(name, data):
