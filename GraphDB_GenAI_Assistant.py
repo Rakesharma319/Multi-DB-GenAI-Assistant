@@ -168,10 +168,12 @@ Answer: Your final answer and comment for the question
 """
 
 # st.write(CYPHER_GENERATION_TEMPLATE)
+def main():
+    genai.configure(api_key = google_api_key)
+    model = genai.GenerativeModel('gemini-1.5-flash')
+    response = model.generate_content(CYPHER_GENERATION_TEMPLATE)
+    llm_response = response.text
+    # st.write(llm_response)
+    display_output(llm_response)
 
-genai.configure(api_key = google_api_key)
-model = genai.GenerativeModel('gemini-1.5-flash')
-response = model.generate_content(CYPHER_GENERATION_TEMPLATE)
-llm_response = response.text
-# st.write(llm_response)
-display_output(llm_response)
+main()
