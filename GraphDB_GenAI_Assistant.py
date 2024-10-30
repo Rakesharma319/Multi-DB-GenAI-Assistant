@@ -26,7 +26,7 @@ schema = graph.schema
 # st.session_state.NEO4J_PASSWORD = st.sidebar.text_input("Enter NEO4J_PASSWORD",type="password")
 
 # function to display llm responce
-def display_output(responce):
+def display_output(llm_response):
   import pandas as pd
   import matplotlib.pyplot as plt
   import numpy as np
@@ -62,7 +62,7 @@ def display_output(responce):
     else:
       print(data)
 
-  actions = responce.split("```")[1::2]
+  actions = llm_response.split("```")[1::2]
 
   python_actions = [action for action in actions if "python" in action]
   python_code1 = python_actions[0]
@@ -71,7 +71,7 @@ def display_output(responce):
   python_code1 = python_code1.replace("python\n","")
   python_code2 = python_code2.replace("python\n","")
 
-  actions3 = responce.split('\n')
+  actions3 = llm_response.split('\n')
   for action3 in actions3:
     if "Question" in action3:
       print(action3,"\n")
