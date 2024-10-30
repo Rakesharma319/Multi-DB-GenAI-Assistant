@@ -84,6 +84,9 @@ else:
     
 question=st.text_input("Ask Question")
 
+google_api_key = st.sidebar.text_input('Google API Key', type='password')
+genai.configure(api_key = google_api_key)
+
 CYPHER_GENERATION_TEMPLATE = f"""
 You are a smart AI assistant to help answer business questions based on analyzing data.
 You can plan solving the question with one or multiple thought step. 
