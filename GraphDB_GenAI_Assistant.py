@@ -69,9 +69,9 @@ def display_output(responce):
     if "Answer" in action3:
       print(action3)
 
-os.environ["NEO4J_URI"]=NEO4J_URI
-os.environ["NEO4J_USERNAME"]=NEO4J_USERNAME
-os.environ["NEO4J_PASSWORD"]=NEO4J_PASSWORD
+os.environ["NEO4J_URI"]=st.session_state.NEO4J_URI
+os.environ["NEO4J_USERNAME"]=st.session_state.NEO4J_USERNAME
+os.environ["NEO4J_PASSWORD"]=st.session_state.NEO4J_PASSWORD
 
 
   
