@@ -176,4 +176,4 @@ def GraphDB_main():
     # st.write(llm_response)
     display_output(llm_response)
 
-# GraphDB_main()
+GraphDB_main()
