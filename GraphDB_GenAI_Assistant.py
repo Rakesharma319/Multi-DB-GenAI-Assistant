@@ -71,9 +71,9 @@ if st.button("Login"):
         username=st.session_state.NEO4J_USERNAME,
         password=st.session_state.NEO4J_PASSWORD,
     )
-    
-schema = graph.schema
-    
+  schema = graph.schema
+
+
 if st.session_state.schema:
     st.write("Database Connection Success!!")
 else:
