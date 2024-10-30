@@ -1,12 +1,15 @@
 import streamlit as st
+from langchain_community.graphs import Neo4jGraph
 import google.generativeai as genai
 from plotly.graph_objects import Figure
+
 
 import os
 
 st.title("🦜🔗 Graph Database GenAI Assistant")
 
-st.session_state.NEO4J_URI = st.sidebar.text_input("Enter NEO4J_URI")
+# st.session_state.NEO4J_URI = st.sidebar.text_input("Enter NEO4J_URI")
+st.session_state.NEO4J_URI = f"neo4j+s://cc339269.databases.neo4j.io"
 st.session_state.NEO4J_USERNAME = st.sidebar.text_input("Enter NEO4J_USERNAME")
 st.session_state.NEO4J_PASSWORD = st.sidebar.text_input("Enter NEO4J_PASSWORD",type="password")
 
@@ -70,7 +73,7 @@ def display_output(responce):
 # os.environ["NEO4J_USERNAME"]=NEO4J_USERNAME
 # os.environ["NEO4J_PASSWORD"]=NEO4J_PASSWORD
 
-from langchain_community.graphs import Neo4jGraph
+
   
 st.session_state.graph=Neo4jGraph(
     url=st.session_state.NEO4J_URI,
