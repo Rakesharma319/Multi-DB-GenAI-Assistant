@@ -209,7 +209,7 @@ def runapp():
     Enter = "True"
 
 st.markdown(
-    """# **Database Google Assistant**
+    """# **Relational Database GenAI Assistant**
 This is an experimental assistant that requires Gemini API access. The app demonstrates the use of gemini to support getting insights from Database by just asking questions. The assistant can also generate SQL and Python code for the Questions.
 """
 )
