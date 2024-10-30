@@ -175,4 +175,3 @@ response = model.generate_content(CYPHER_GENERATION_TEMPLATE)
 llm_response = response.text
 # st.write(llm_response)
 display_output(llm_response)
-
