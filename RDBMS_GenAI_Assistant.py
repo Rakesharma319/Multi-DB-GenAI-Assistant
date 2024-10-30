@@ -311,5 +311,5 @@ if user_input:
 	display_output(response)
 
 else:
-	st.error("Not implemented yet!")
+	st.error("Please Ask Question")
 	
