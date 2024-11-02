@@ -27,7 +27,8 @@ if st.sidebar.button("Call Function"):
     elif function_choice == "Graph_Database":
         gdb_response = graphDB_main(CYPHER_GENERATION_TEMPLATE,google_api_key)
         col1.write("Graph_Database")
-        col1.write(gdb_response)
+        # col1.write(gdb_response)
+        display_output(gdb_response)
     else:
         result = "Invalid choice"
 
