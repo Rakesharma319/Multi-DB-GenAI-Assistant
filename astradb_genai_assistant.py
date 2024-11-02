@@ -32,7 +32,7 @@ with st.sidebar:
         vstore = AstraDBVectorStore(
             collection_name="qa_mini_demo2",
             embedding=embedding,
-            token=userdata.get('ASTRADB_API_KEY'),
+            token=ASTRADB_API_KEY,
             api_endpoint="https://5e5c552b-3a72-4b4b-bd83-0e2e0f12347a-us-east-2.apps.astra.datastax.com",
         )
         
