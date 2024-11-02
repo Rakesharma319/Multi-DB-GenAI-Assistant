@@ -298,6 +298,7 @@ else:
 
 def rdbms_main():
 	response = get_final_output_from_model(prompt_to_get_sqlwitanalysis)
-	display_output(response)
+	# display_output(response)
+	return response
 	
 rdbms_main()
