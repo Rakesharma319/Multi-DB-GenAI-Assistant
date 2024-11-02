@@ -13,7 +13,7 @@ question = st.sidebar.text_area("Ask me a question")
 
 
 # Dropdown for function selection
-function_choice = st.selectbox("Choose a function to call", ["Relational_Database", "Graph_Database"])
+function_choice = st.sidebar.selectbox("Choose a function to call", ["Relational_Database", "Graph_Database"])
 
 # Button to call the function
 if st.button("Call Function"):
