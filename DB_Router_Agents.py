@@ -17,9 +17,11 @@ function_choice = st.selectbox("Choose a function to call", ["Relational_Databas
 # Button to call the function
 if st.button("Call Function"):
     if function_choice == "Relational_Database":
-        rdbms_main()
+        # rdbms_main()
+        print("Relational_Database")
     elif function_choice == "Graph_Database":
-        graphDB_main()
+        # graphDB_main()
+        print("Graph_Database")
     else:
         result = "Invalid choice"
 
