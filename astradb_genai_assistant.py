@@ -56,6 +56,5 @@ with st.sidebar:
         col1.write(final_output)
         col1.write("similar search output")
         col1.write(retriver_op)
-
     else:
-        st.write("Please ask question !!")
+        col1.write("Please ask question !!")
