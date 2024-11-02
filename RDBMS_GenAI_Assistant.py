@@ -290,7 +290,7 @@ if user_input:
 	"""
 	
 	response = get_final_output_from_model()
-	st.write(response)
+	st.write(prompt_to_get_sqlwitanalysis)
 	#display_output(response)
 	
 else:
