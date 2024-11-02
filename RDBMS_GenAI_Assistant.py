@@ -297,7 +297,7 @@ else:
 	st.error("Please Ask Question")
 	
 
-def rdbms_main():
+def rdbms_main(prompt_to_get_sqlwitanalysis):
 	response = get_final_output_from_model(prompt_to_get_sqlwitanalysis)
 	# display_output(response)
 	return response
