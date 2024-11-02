@@ -16,7 +16,7 @@ question = st.sidebar.text_area("Ask me a question")
 function_choice = st.sidebar.selectbox("Choose a function to call", ["Relational_Database", "Graph_Database"])
 
 # Button to call the function
-if st.button("Call Function"):
+if st.sidebar.button("Call Function"):
     if function_choice == "Relational_Database":
         # rdbms_main()
         print("Relational_Database",question)
