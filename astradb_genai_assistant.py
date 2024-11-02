@@ -25,7 +25,6 @@ with st.sidebar:
     GOOGLE_API_KEY = st.text_input('Google API Key', type='password')
     question = st.text_area("Ask me a question")
     if question:
-        
         genai.configure(api_key=GOOGLE_API_KEY)
         # Configure your embedding model and vector store
         embedding = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
