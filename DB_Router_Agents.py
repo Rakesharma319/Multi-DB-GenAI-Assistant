@@ -9,7 +9,7 @@ google_api_key = st.sidebar.text_input('Google API Key', type='password')
 NEO4J_PASSWORD=st.sidebar.text_input("Enter NEO4J_PASSWORD",type="password")
 
 # User input for name
-name = st.text_input("Enter your DB")
+question = st.sidebar.text_area("Ask me a question")
 
 
 # Dropdown for function selection
@@ -19,10 +19,10 @@ function_choice = st.selectbox("Choose a function to call", ["Relational_Databas
 if st.button("Call Function"):
     if function_choice == "Relational_Database":
         # rdbms_main()
-        print("Relational_Database")
+        print("Relational_Database",question)
     elif function_choice == "Graph_Database":
         # graphDB_main()
-        print("Graph_Database")
+        print("Graph_Database",question)
     else:
         result = "Invalid choice"
 
