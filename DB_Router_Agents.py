@@ -11,6 +11,7 @@ NEO4J_PASSWORD=st.sidebar.text_input("Enter NEO4J_PASSWORD",type="password")
 # User input for name
 name = st.text_input("Enter your DB")
 
+
 # Dropdown for function selection
 function_choice = st.selectbox("Choose a function to call", ["Relational_Database", "Graph_Database"])
 
@@ -25,7 +26,3 @@ if st.button("Call Function"):
     else:
         result = "Invalid choice"
 
-
-# Run the Streamlit app
-if __name__ == "__main__":
-    st.run()
