@@ -1,5 +1,4 @@
 import google.generativeai as genai
-from google.colab import userdata
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_astradb import AstraDBVectorStore
 import os
