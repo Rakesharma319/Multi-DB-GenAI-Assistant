@@ -415,8 +415,8 @@ def graphDB_main(NEO4J_PASSWORD,google_api_key,question):
     response = model.generate_content(CYPHER_GENERATION_TEMPLATE)
     llm_response = response.text
     # st.write(llm_response)
-    # display_output(llm_response)
-    return llm_response
+    display_output(llm_response)
+    # return llm_response
 #-------- Graph DB end ------------
 
 # Dropdown for function selection
