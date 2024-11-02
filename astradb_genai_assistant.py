@@ -32,21 +32,21 @@ with st.sidebar:
         vstore = AstraDBVectorStore(
             collection_name="qa_mini_demo2",
             embedding=embedding,
-            token=userdata.get('ASTRADB_API_KEY'),
+            token=ASTRADB_API_KEY,
             api_endpoint="https://5e5c552b-3a72-4b4b-bd83-0e2e0f12347a-us-east-2.apps.astra.datastax.com",
         )
         
         retriever = vstore.as_retriever(search_kwargs={"k": 3})
         retriver_op = retriever.invoke(question)
         
-        prompt_template = f"""
-           Answer the question based only on the supplied context. If you don't know the answer, say you don't know the answer.
-           If you know the answer then give your openion on the final result in 100 words, and tag it with 'My Openion' followed by original result.
-           Context: {retriver_op}
-           Question: {question}
-           Your answer:
-           Your Openion :
-           """
+        prompt_template = 
+        f"""Answer the question based only on the supplied context. If you don't know the answer, say you don't know the answer.
+        If you know the answer then give your openion on the final result in 100 words, and tag it with 'My Openion' followed by original result.
+        Context: {retriver_op}
+        Question: {question}
+        Your answer:
+        Your Openion :
+        """
         
         final_output = get_final_output_from_model()
         
