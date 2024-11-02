@@ -6,7 +6,7 @@ from GraphDB_GenAI_Assistant import *
 st.title("🦜🔗 Database Router Agents GenAI Assistant")
 
 google_api_key = st.sidebar.text_input('Google API Key', type='password')
-
+NEO4J_PASSWORD=st.sidebar.text_input("Enter NEO4J_PASSWORD",type="password")
 
 # User input for name
 name = st.text_input("Enter your DB")
