@@ -1,9 +1,12 @@
 import streamlit as st
-from RDBMS_GenAI_Assistant import rdbms_main
-from GraphDB_GenAI_Assistant import graphDB_main
+from RDBMS_GenAI_Assistant import *
+from GraphDB_GenAI_Assistant import *
 
 # Streamlit app
 st.title("🦜🔗 Database Router Agents GenAI Assistant")
+
+google_api_key = st.sidebar.text_input('Google API Key', type='password')
+
 
 # User input for name
 name = st.text_input("Enter your DB")
