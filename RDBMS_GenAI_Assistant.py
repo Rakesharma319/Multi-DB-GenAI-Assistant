@@ -289,16 +289,17 @@ if user_input:
 	
 	"""
 	
-	#response = get_final_output_from_model()
+	response = get_final_output_from_model()
+	st.write(response)
 	#display_output(response)
 	
 else:
 	st.error("Please Ask Question")
 	
 
-def rdbms_main():
-	response = get_final_output_from_model(prompt_to_get_sqlwitanalysis)
-	# display_output(response)
-	return response
+# def rdbms_main():
+# 	response = get_final_output_from_model(prompt_to_get_sqlwitanalysis)
+# 	# display_output(response)
+# 	return response
 	
-rdbms_main()
+# rdbms_main()
