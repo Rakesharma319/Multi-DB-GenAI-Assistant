@@ -55,9 +55,9 @@ with st.sidebar:
         final_output = get_final_output_from_model()
         
         col1.write("Astra vector store configured")
-        col1.write("User Question:",{question})
+        col1.write("User Question:")
         col1.write(question)
-        col1.write("Response:",{final_output})
+        col1.write("Response:")
         col1.write(final_output)
         col1.write("similar search output")
         col1.write(retriver_op)
