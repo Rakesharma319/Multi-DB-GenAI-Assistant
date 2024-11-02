@@ -1,6 +1,6 @@
 import streamlit as st
 from RDBMS_GenAI_Assistant import *
-from GraphDB_GenAI_Assistant import *
+# from GraphDB_GenAI_Assistant import *
 
 # Streamlit app
 st.title("🦜🔗 Database Router Agents GenAI Assistant")
@@ -24,9 +24,9 @@ if st.sidebar.button("Call Function"):
         col1.write("Relational_Database")
         col1.write(response)
     elif function_choice == "Graph_Database":
-        gdb_response = graphDB_main()
+        # gdb_response = graphDB_main()
         col1.write("Graph_Database")
-        col1.write(gdb_response)
+        # col1.write(gdb_response)
     else:
         result = "Invalid choice"
 
