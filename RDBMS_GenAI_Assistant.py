@@ -289,16 +289,16 @@ if user_input:
 	
 	"""
 	
-	# response = get_final_output_from_model(prompt_to_get_sqlwitanalysis)
-	# st.write(response)
+	response = get_final_output_from_model(prompt_to_get_sqlwitanalysis)
+	st.write(response)
 	#display_output(response)
 	
 else:
 	st.error("Please Ask Question")
 	
 
-def rdbms_main(prompt_to_get_sqlwitanalysis):
-	response = get_final_output_from_model(prompt_to_get_sqlwitanalysis)
-	st.write(response)
+# def rdbms_main(prompt_to_get_sqlwitanalysis):
+# 	response = get_final_output_from_model(prompt_to_get_sqlwitanalysis)
+# 	st.write(response)
 	
-rdbms_main(prompt_to_get_sqlwitanalysis)
+# rdbms_main(prompt_to_get_sqlwitanalysis)
