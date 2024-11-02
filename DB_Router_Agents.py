@@ -20,7 +20,7 @@ function_choice = st.sidebar.selectbox("Choose a function to call", ["Relational
 if st.sidebar.button("Call Function"):
     if function_choice == "Relational_Database":
         # rdbms_main()
-        response = get_final_output_from_model(prompt_to_get_sqlwitanalysis)
+        response = rdbms_main(prompt_to_get_sqlwitanalysis)
         col1.write("Relational_Database")
         # col1.write(response)
         display_output(response)
