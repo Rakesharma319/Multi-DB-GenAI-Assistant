@@ -24,9 +24,9 @@ with st.sidebar:
     ASTRADB_API_KEY = st.text_input('Astra DB API Key', type='password')
     GOOGLE_API_KEY = st.text_input('Google API Key', type='password')
     question = st.text_area("Ask me a question")
-    
-    if question:
-		prompt_template = f"""
+	
+	if question:
+        	prompt_template = f"""
 		Answer the question based only on the supplied context. If you don't know the answer, say you don't know the answer.
 		
 		If you know the answer then give your openion on the final result in 100 words, and tag it with 'My Openion' followed by original result.
@@ -37,6 +37,7 @@ with st.sidebar:
 		
 		Your Openion :
 		"""
+		
         genai.configure(api_key=GOOGLE_API_KEY)
         # Configure your embedding model and vector store
         embedding = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
