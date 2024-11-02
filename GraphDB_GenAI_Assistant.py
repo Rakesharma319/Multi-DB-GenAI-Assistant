@@ -8,6 +8,8 @@ import os
 
 st.title("🦜🔗 Graph Database GenAI Assistant")
 
+google_api_key = st.sidebar.text_input('Google API Key', type='password')
+
 NEO4J_URI=st.secrets["NEO4J_URI"]
 NEO4J_USERNAME=st.secrets["NEO4J_USERNAME"]
 NEO4J_PASSWORD=st.sidebar.text_input("Enter NEO4J_PASSWORD",type="password")
@@ -37,7 +39,6 @@ else:
     
 question=st.text_input("Ask Question")
 
-google_api_key = st.sidebar.text_input('Google API Key', type='password')
 
 # function to display llm responce
 def display_output(llm_response):
