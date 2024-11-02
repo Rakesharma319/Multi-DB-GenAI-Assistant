@@ -25,6 +25,10 @@ with st.sidebar:
     GOOGLE_API_KEY = st.text_input('Google API Key', type='password')
     question = st.text_area("Ask me a question")
     if question:
+        
+        retriever = vstore.as_retriever(search_kwargs={"k": 3})
+        retriver_op = retriever.invoke(question)
+        
         prompt_template = f"""
 		Answer the question based only on the supplied context. If you don't know the answer, say you don't know the answer.
 		
@@ -47,8 +51,7 @@ with st.sidebar:
             api_endpoint="https://5e5c552b-3a72-4b4b-bd83-0e2e0f12347a-us-east-2.apps.astra.datastax.com",
         )
         
-        retriever = vstore.as_retriever(search_kwargs={"k": 3})
-        retriver_op = retriever.invoke(question)
+        
         
         final_output = get_final_output_from_model()
         
