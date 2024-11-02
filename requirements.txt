@@ -8,3 +8,4 @@ plotly
 langchain
 langchain-community
 neo4j
+langchain_astradb
