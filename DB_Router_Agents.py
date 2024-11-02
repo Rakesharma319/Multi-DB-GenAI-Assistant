@@ -4,6 +4,7 @@ import streamlit as st
 
 # Streamlit app
 st.title("🦜🔗 Database Router Agents GenAI Assistant")
+col1, col2 = st.columns((3, 1))
 
 google_api_key = st.sidebar.text_input('Google API Key', type='password')
 NEO4J_PASSWORD=st.sidebar.text_input("Enter NEO4J_PASSWORD",type="password")
@@ -19,10 +20,10 @@ function_choice = st.sidebar.selectbox("Choose a function to call", ["Relational
 if st.sidebar.button("Call Function"):
     if function_choice == "Relational_Database":
         # rdbms_main()
-        print("Relational_Database",question)
+        col1.write("Relational_Database",question)
     elif function_choice == "Graph_Database":
         # graphDB_main()
-        print("Graph_Database",question)
+        col1.write("Graph_Database",question)
     else:
         result = "Invalid choice"
 
