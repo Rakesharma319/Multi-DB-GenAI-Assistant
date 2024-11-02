@@ -1,6 +1,6 @@
 import streamlit as st
-# from RDBMS_GenAI_Assistant import *
-# from GraphDB_GenAI_Assistant import *
+from RDBMS_GenAI_Assistant import *
+from GraphDB_GenAI_Assistant import *
 
 # Streamlit app
 st.title("🦜🔗 Database Router Agents GenAI Assistant")
