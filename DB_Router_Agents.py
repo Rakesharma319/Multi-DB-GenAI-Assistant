@@ -22,7 +22,8 @@ if st.sidebar.button("Call Function"):
         # rdbms_main()
         response = get_final_output_from_model(prompt_to_get_sqlwitanalysis)
         col1.write("Relational_Database")
-        col1.write(response)
+        # col1.write(response)
+        display_output(response)
     elif function_choice == "Graph_Database":
         # gdb_response = graphDB_main()
         col1.write("Graph_Database")
