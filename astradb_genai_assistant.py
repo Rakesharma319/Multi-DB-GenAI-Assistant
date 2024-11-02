@@ -25,10 +25,6 @@ with st.sidebar:
     GOOGLE_API_KEY = st.text_input('Google API Key', type='password')
     question = st.text_area("Ask me a question")
     
-    os.environ["ASTRA_DB_API_ENDPOINT"] ="https://5e5c552b-3a72-4b4b-bd83-0e2e0f12347a-us-east-2.apps.astra.datastax.com"
-    os.environ["ASTRADB_API_KEY"] =ASTRADB_API_KEY
-    os.environ["OPENAI_API_KEY"] = getpass("Enter your OpenAI API Key: ")
-    
     if question:
         os.environ["ASTRA_DB_API_ENDPOINT"] ="https://5e5c552b-3a72-4b4b-bd83-0e2e0f12347a-us-east-2.apps.astra.datastax.com"
         os.environ["ASTRADB_API_KEY"] =ASTRADB_API_KEY
