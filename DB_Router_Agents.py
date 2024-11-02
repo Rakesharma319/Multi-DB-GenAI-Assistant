@@ -1,5 +1,5 @@
 import streamlit as st
-from RDBMS_GenAI_Assistant import *
+from RDBMS_GenAI_Assistant import rdbms_main
 from GraphDB_GenAI_Assistant import graphDB_main
 
 # Streamlit app
