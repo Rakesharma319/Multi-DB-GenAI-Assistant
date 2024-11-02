@@ -25,17 +25,26 @@ with st.sidebar:
     GOOGLE_API_KEY = st.text_input('Google API Key', type='password')
     question = st.text_area("Ask me a question")
     
+    os.environ["ASTRA_DB_API_ENDPOINT"] ="https://5e5c552b-3a72-4b4b-bd83-0e2e0f12347a-us-east-2.apps.astra.datastax.com"
+    os.environ["ASTRADB_API_KEY"] =ASTRADB_API_KEY
+    os.environ["OPENAI_API_KEY"] = getpass("Enter your OpenAI API Key: ")
+    
     if question:
+        os.environ["ASTRA_DB_API_ENDPOINT"] ="https://5e5c552b-3a72-4b4b-bd83-0e2e0f12347a-us-east-2.apps.astra.datastax.com"
+        os.environ["ASTRADB_API_KEY"] =ASTRADB_API_KEY
+        os.environ["GOOGLE_API_KEY"] = GOOGLE_API_KEY
+        
         genai.configure(api_key=GOOGLE_API_KEY)
         # Configure your embedding model and vector store
         embedding = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
+        
         vstore = AstraDBVectorStore(
             collection_name="qa_mini_demo2",
             embedding=embedding,
-            token=ASTRADB_API_KEY,
-            api_endpoint="https://5e5c552b-3a72-4b4b-bd83-0e2e0f12347a-us-east-2.apps.astra.datastax.com",
+            token=os.getenv("ASTRADB_API_KEY"),
+            api_endpoint=os.getenv("ASTRA_DB_API_ENDPOINT"),
         )
-        
+
         retriever = vstore.as_retriever(search_kwargs={"k": 3})
         retriver_op = retriever.invoke(question)
         
@@ -56,5 +65,6 @@ with st.sidebar:
         col1.write(final_output)
         col1.write("similar search output")
         col1.write(retriver_op)
+
     else:
-        col1.write("Please ask question !!")
+        st.write("Please ask question !!")
