@@ -21,14 +21,14 @@ This assistant has RAG technique used to get more accurate response out of simil
 col1, col2 = st.columns((3, 1))
 
 with st.sidebar:
-    ASTRADB_API_KEY = st.text_input('Astra DB API Key', type='password')
-    GOOGLE_API_KEY = st.text_input('Google API Key', type='password')
+    astradb_api_key = st.text_input('Astra DB API Key', type='password')
+    google_api_key = st.text_input('Google API Key', type='password')
     question = st.text_area("Ask me a question")
     
     if question:
         os.environ["ASTRA_DB_API_ENDPOINT"] ="https://5e5c552b-3a72-4b4b-bd83-0e2e0f12347a-us-east-2.apps.astra.datastax.com"
-        os.environ["ASTRADB_API_KEY"] =ASTRADB_API_KEY
-        os.environ["GOOGLE_API_KEY"] = GOOGLE_API_KEY
+        os.environ["ASTRADB_API_KEY"] =astradb_api_key
+        os.environ["GOOGLE_API_KEY"] = google_api_key
         
         genai.configure(api_key=GOOGLE_API_KEY)
         # Configure your embedding model and vector store
