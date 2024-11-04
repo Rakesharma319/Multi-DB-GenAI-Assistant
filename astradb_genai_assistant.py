@@ -4,7 +4,7 @@ from langchain_astradb import AstraDBVectorStore
 import streamlit as st
 import os
 
-def get_final_output_from_model():
+def get_final_output_from_model(prompt_template):
   model = genai.GenerativeModel('gemini-1.5-flash')
   response = model.generate_content(prompt_template)
   SQL_Code = response.text
@@ -52,7 +52,7 @@ with st.sidebar:
         Your Openion :
         """
         
-        final_output = get_final_output_from_model()
+        final_output = get_final_output_from_model(prompt_template)
         
         col1.write("Astra vector store configured")
         col1.write("User Question:")
