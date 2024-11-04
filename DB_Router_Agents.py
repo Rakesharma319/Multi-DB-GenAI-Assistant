@@ -112,7 +112,7 @@ def rdbms_main(google_api_key,user_input,col1):
     
     # function to display llm responce
     
-    def display_output(responce):
+    def display_output(responce,col1):
         import sqlite3
         import pandas as pd
         import matplotlib.pyplot as plt
@@ -273,7 +273,7 @@ def graphDB_main(NEO4J_PASSWORD,google_api_key,question,col1):
         col1.write("Check DB Connection")
     
     # function to display llm responce
-    def display_output(llm_response):
+    def display_output(llm_response,col1):
         import pandas as pd
         import matplotlib.pyplot as plt
         import numpy as np
