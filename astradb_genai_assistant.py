@@ -30,7 +30,7 @@ with st.sidebar:
         os.environ["ASTRADB_API_KEY"] =astradb_api_key
         os.environ["GOOGLE_API_KEY"] = google_api_key
         
-        genai.configure(api_key=GOOGLE_API_KEY)
+        genai.configure(api_key=google_api_key)
         # Configure your embedding model and vector store
         embedding = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
         
