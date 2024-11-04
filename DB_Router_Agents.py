@@ -414,7 +414,7 @@ def graphDB_main(NEO4J_PASSWORD,google_api_key,question,st):
 
 def astradb_main_funct(ASTRADB_API_KEY,google_api_key,question,st):
     
-    def get_final_output_from_model():
+    def get_final_output_from_model(prompt_template):
         model = genai.GenerativeModel('gemini-1.5-flash')
         response = model.generate_content(prompt_template)
         SQL_Code = response.text
@@ -456,7 +456,7 @@ def astradb_main_funct(ASTRADB_API_KEY,google_api_key,question,st):
         Your Openion :
         """
         
-        final_output = get_final_output_from_model()
+        final_output = get_final_output_from_model(prompt_template)
         
         st.write("Astra vector store configured")
         st.write("User Question:")
