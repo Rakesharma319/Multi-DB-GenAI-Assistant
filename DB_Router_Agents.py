@@ -419,14 +419,14 @@ def astradb_main_funct(ASTRADB_API_KEY,google_api_key,question,col1):
         return response.text
     
     # Streamlit App 
-    
-    st.markdown(
+    col1, col2 = st.columns((3, 1))
+    col1.markdown(
         """# **Vector Database Gemini Assistant**
     This is an experimental assistant that requires OpenAI access. The app demonstrates the use of Gemini AI to support getting insights from Vector Database by just asking questions. 
     This assistant has RAG technique used to get more accurate response out of similirity search output of vector db.
     """
     )
-    col1, col2 = st.columns((3, 1))
+
     
     if question:
         os.environ["ASTRA_DB_API_ENDPOINT"] ="https://5e5c552b-3a72-4b4b-bd83-0e2e0f12347a-us-east-2.apps.astra.datastax.com"
