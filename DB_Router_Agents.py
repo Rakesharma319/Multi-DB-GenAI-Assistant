@@ -417,6 +417,7 @@ def astradb_main_funct(ASTRADB_API_KEY,google_api_key,question,st):
     def get_final_output_from_model():
         model = genai.GenerativeModel('gemini-1.5-flash')
         response = model.generate_content(prompt_template)
+        SQL_Code = response.text
         return response.text
     
     # Streamlit App 
