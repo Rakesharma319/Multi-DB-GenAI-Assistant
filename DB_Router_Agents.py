@@ -434,7 +434,7 @@ def astradb_main_funct(ASTRADB_API_KEY,google_api_key,question,st):
         os.environ["ASTRADB_API_KEY"] =ASTRADB_API_KEY
         os.environ["google_api_key"] = google_api_key
         
-        genai.configure(api_key=google_api_key)
+        genai.configure(api_key=os.getenv("google_api_key"))
         # Configure your embedding model and vector store
         embedding = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
         
