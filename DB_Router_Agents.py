@@ -484,7 +484,7 @@ col1, col2 = st.columns((3, 1))
 with st.sidebar:
     ASTRADB_API_KEY = st.text_input('Astra DB API Key', type='password')
     NEO4J_PASSWORD = st.text_input('Enter NEO4J_PASSWORD', type='password')
-    GOOGLE_API_KEY = st.text_input('Google API Key', type='password')
+    google_api_key = st.text_input('Google API Key', type='password')
     question = st.text_area("Ask me a question")
     # Dropdown for function selection
     function_choice = st.selectbox("Choose a function to call", ["Relational_Database", "Graph_Database","Vector_Database"])
