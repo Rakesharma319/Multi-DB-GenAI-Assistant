@@ -410,7 +410,7 @@ def graphDB_main(NEO4J_PASSWORD,google_api_key,question,col1):
 
 # ---------------- vector db main function -----------
 
-def astradb_main_funct(ASTRADB_API_KEY,GOOGLE_API_KEY,question,col1):
+def astradb_main_funct(ASTRADB_API_KEY,google_api_key,question,col1):
     
     def get_final_output_from_model():
         model = genai.GenerativeModel('gemini-1.5-flash')
@@ -431,7 +431,7 @@ def astradb_main_funct(ASTRADB_API_KEY,GOOGLE_API_KEY,question,col1):
     if question:
         os.environ["ASTRA_DB_API_ENDPOINT"] ="https://5e5c552b-3a72-4b4b-bd83-0e2e0f12347a-us-east-2.apps.astra.datastax.com"
         os.environ["ASTRADB_API_KEY"] =ASTRADB_API_KEY
-        os.environ["GOOGLE_API_KEY"] = GOOGLE_API_KEY
+        os.environ["GOOGLE_API_KEY"] = google_api_key
         
         genai.configure(api_key=GOOGLE_API_KEY)
         # Configure your embedding model and vector store
