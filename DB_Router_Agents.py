@@ -494,7 +494,7 @@ with st.sidebar:
             col1.write("Graph_Database")
             col1.write(gdb_response)
         elif function_choice == "Vector_Database":
-            vdb_response = astradb_main_funct(ASTRADB_API_KEY,GOOGLE_API_KEY,question,col1)
+            vdb_response = astradb_main_funct(ASTRADB_API_KEY,google_api_key,question,col1)
             col1.write("Vector_Database")
             col1.write(vdb_response)
         else:
