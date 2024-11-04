@@ -21,7 +21,7 @@ from langchain_astradb import AstraDBVectorStore
 
 
 #---- RDBMS Function -----------
-def rdbms_main(google_api_key,user_input,col1):
+def rdbms_main(google_api_key,user_input,st):
     def get_all_table_names():
         import sqlite3
         import pandas as pd
@@ -112,7 +112,7 @@ def rdbms_main(google_api_key,user_input,col1):
     
     # function to display llm responce
     
-    def display_output(responce,col1):
+    def display_output(responce,st):
         import sqlite3
         import pandas as pd
         import matplotlib.pyplot as plt
@@ -127,14 +127,14 @@ def rdbms_main(google_api_key,user_input,col1):
                 data = data[:10]  # limit the print out observation to 5 elements
             except:
                 pass
-            col1.write(f"observation:{name}")
-            col1.write(data )
+            st.write(f"observation:{name}")
+            st.write(data )
         
         def show(data):
             if type(data) is Figure:
-                col1.plotly_chart(data)
+                st.plotly_chart(data)
             else:
-                col1.write(data)
+                st.write(data)
         
         actions = responce.split("```")[1::2]
         
@@ -148,24 +148,24 @@ def rdbms_main(google_api_key,user_input,col1):
         actions3 = responce.split('\n')
         for action3 in actions3:
             if "Question" in action3:
-                col1.write(action3)
+                st.write(action3)
         
             if "Thought 1" in action3:
-                col1.write(action3)
+                st.write(action3)
                 # st.write(python_code1)
-                col1.code(python_code1,language="python")
+                st.code(python_code1,language="python")
                 exec(python_code1,locals())
             # print("\n")
             
             if "Thought 2" in action3:
-                col1.write(action3)
+                st.write(action3)
                 # st.write(python_code2)
-                col1.code(python_code2,language="python")
+                st.code(python_code2,language="python")
                 exec(python_code2,locals())
             # print("\n")
             
             if "Answer" in action3:
-                col1.write(action3)
+                st.write(action3)
     # ------------- Streamlit app --------------
     
     #-------------- Ask api key
@@ -247,11 +247,11 @@ def rdbms_main(google_api_key,user_input,col1):
     
     """
     response = get_final_output_from_model()
-    display_output(response,col1)
+    display_output(response,st)
 #----- RDBMS End -------------
 
 #-------- Grapg DB Funation ---------
-def graphDB_main(NEO4J_PASSWORD,google_api_key,question,col1):
+def graphDB_main(NEO4J_PASSWORD,google_api_key,question,st):
     NEO4J_URI=st.secrets["NEO4J_URI"]
     NEO4J_USERNAME=st.secrets["NEO4J_USERNAME"]
     
@@ -268,12 +268,12 @@ def graphDB_main(NEO4J_PASSWORD,google_api_key,question,col1):
     os.environ["NEO4J_PASSWORD"]=NEO4J_PASSWORD
     
     if schema:
-        col1.write("Database Connection Success!!")
+        st.write("Database Connection Success!!")
     else:
-        col1.write("Check DB Connection")
+        st.write("Check DB Connection")
     
     # function to display llm responce
-    def display_output(llm_response,col1):
+    def display_output(llm_response,st):
         import pandas as pd
         import matplotlib.pyplot as plt
         import numpy as np
@@ -300,14 +300,14 @@ def graphDB_main(NEO4J_PASSWORD,google_api_key,question,col1):
                 data = data[:5]  # limit the print out observation to 5 elements
             except:
                 pass
-            col1.write(f"observation:{name}")
-            col1.write(data )
+            st.write(f"observation:{name}")
+            st.write(data )
         
         def show(data):
             if type(data) is Figure:
-                col1.plotly_chart(data)
+                st.plotly_chart(data)
             else:
-                col1.write(data)
+                st.write(data)
         
         actions = llm_response.split("```")[1::2]
         
@@ -321,20 +321,20 @@ def graphDB_main(NEO4J_PASSWORD,google_api_key,question,col1):
         actions3 = llm_response.split('\n')
         for action3 in actions3:
             if "Question" in action3:
-                col1.write(action3,"\n")
+                st.write(action3,"\n")
         
             if "Thought 1" in action3:
-                col1.write(action3)
-                col1.code(python_code1,language="python")
+                st.write(action3)
+                st.code(python_code1,language="python")
                 exec(python_code1,locals())
         
             if "Thought 2" in action3:
-                col1.write(action3)
-                col1.code(python_code2,language="python")
+                st.write(action3)
+                st.code(python_code2,language="python")
                 exec(python_code2,locals())
         
             if "Answer" in action3:
-                col1.write(action3)
+                st.write(action3)
     
     
     CYPHER_GENERATION_TEMPLATE = f"""
@@ -404,13 +404,13 @@ def graphDB_main(NEO4J_PASSWORD,google_api_key,question,col1):
     model = genai.GenerativeModel('gemini-1.5-flash')
     response = model.generate_content(CYPHER_GENERATION_TEMPLATE)
     llm_response = response.text
-    display_output(llm_response,col1)
+    display_output(llm_response,st)
 
 #-------- Graph DB end ------------
 
 # ---------------- vector db main function -----------
 
-def astradb_main_funct(ASTRADB_API_KEY,google_api_key,question,col1):
+def astradb_main_funct(ASTRADB_API_KEY,google_api_key,question,st):
     
     def get_final_output_from_model():
         model = genai.GenerativeModel('gemini-1.5-flash')
@@ -419,8 +419,8 @@ def astradb_main_funct(ASTRADB_API_KEY,google_api_key,question,col1):
         return response.text
     
     # Streamlit App 
-    col1, col2 = st.columns((3, 1))
-    col1.markdown(
+    st, col2 = st.columns((3, 1))
+    st.markdown(
         """# **Vector Database Gemini Assistant**
     This is an experimental assistant that requires OpenAI access. The app demonstrates the use of Gemini AI to support getting insights from Vector Database by just asking questions. 
     This assistant has RAG technique used to get more accurate response out of similirity search output of vector db.
@@ -457,13 +457,13 @@ def astradb_main_funct(ASTRADB_API_KEY,google_api_key,question,col1):
         
         final_output = get_final_output_from_model()
         
-        col1.write("Astra vector store configured")
-        col1.write("User Question:")
-        col1.write(question)
-        col1.write("Response:")
-        col1.write(final_output)
-        col1.write("similar search output")
-        col1.write(retriver_op)
+        st.write("Astra vector store configured")
+        st.write("User Question:")
+        st.write(question)
+        st.write("Response:")
+        st.write(final_output)
+        st.write("similar search output")
+        st.write(retriver_op)
     
     else:
         st.write("Please ask question !!")
@@ -471,9 +471,8 @@ def astradb_main_funct(ASTRADB_API_KEY,google_api_key,question,col1):
 #------ Astra DB end --------------------------
 
 # Stramlit app
-
-st.title("🦜🔗 Database Router Agents GenAI Assistant")
 col1, col2 = st.columns((3, 1))
+st.title("🦜🔗 Database Router Agents GenAI Assistant")
 
 with st.sidebar:
     ASTRADB_API_KEY = st.text_input('Astra DB API Key', type='password')
@@ -487,16 +486,16 @@ with st.sidebar:
     if st.sidebar.button("Call Function"):
         if function_choice == "Relational_Database":
             response = rdbms_main(google_api_key,question,col1)
-            col1.write("Relational_Database")
-            col1.write(response)
+            st.write("Relational_Database")
+            st.write(response)
         elif function_choice == "Graph_Database":
             gdb_response = graphDB_main(NEO4J_PASSWORD,google_api_key,question,col1)
-            col1.write("Graph_Database")
-            col1.write(gdb_response)
+            st.write("Graph_Database")
+            st.write(gdb_response)
         elif function_choice == "Vector_Database":
             vdb_response = astradb_main_funct(ASTRADB_API_KEY,google_api_key,question,col1)
-            col1.write("Vector_Database")
-            col1.write(vdb_response)
+            st.write("Vector_Database")
+            st.write(vdb_response)
         else:
             result = "Invalid choice"
 
