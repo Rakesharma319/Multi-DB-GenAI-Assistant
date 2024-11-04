@@ -247,13 +247,15 @@ def rdbms_main(google_api_key,user_input,st):
     
     """
     response = get_final_output_from_model()
-    display_output(response,st)
+    display_output(response,col1)
 #----- RDBMS End -------------
 
 #-------- Grapg DB Funation ---------
 def graphDB_main(NEO4J_PASSWORD,google_api_key,question,st):
-    NEO4J_URI=st.secrets["NEO4J_URI"]
-    NEO4J_USERNAME=st.secrets["NEO4J_USERNAME"]
+    # NEO4J_URI=st.secrets["NEO4J_URI"]
+    NEO4J_URI = "neo4j+s://cc339269.databases.neo4j.io"
+    # NEO4J_USERNAME=st.secrets["NEO4J_USERNAME"]
+    NEO4J_USERNAME="neo4j"
     
     graph=Neo4jGraph(
         url=NEO4J_URI,
@@ -321,7 +323,7 @@ def graphDB_main(NEO4J_PASSWORD,google_api_key,question,st):
         actions3 = llm_response.split('\n')
         for action3 in actions3:
             if "Question" in action3:
-                st.write(action3,"\n")
+                st.write(action3)
         
             if "Thought 1" in action3:
                 st.write(action3)
@@ -404,7 +406,7 @@ def graphDB_main(NEO4J_PASSWORD,google_api_key,question,st):
     model = genai.GenerativeModel('gemini-1.5-flash')
     response = model.generate_content(CYPHER_GENERATION_TEMPLATE)
     llm_response = response.text
-    display_output(llm_response,st)
+    display_output(llm_response,col1)
 
 #-------- Graph DB end ------------
 
@@ -415,7 +417,6 @@ def astradb_main_funct(ASTRADB_API_KEY,google_api_key,question,st):
     def get_final_output_from_model():
         model = genai.GenerativeModel('gemini-1.5-flash')
         response = model.generate_content(prompt_template)
-        SQL_Code = response.text
         return response.text
     
     # Streamlit App 
@@ -471,11 +472,11 @@ def astradb_main_funct(ASTRADB_API_KEY,google_api_key,question,st):
 
 # Stramlit app
 col1, col2 = st.columns((3, 1))
-st.title("🦜🔗 Database Router Agents GenAI Assistant")
+col1.title("🦜🔗 Database Router Agents GenAI Assistant")
 
 with st.sidebar:
-    ASTRADB_API_KEY = st.text_input('Astra DB API Key', type='password')
-    NEO4J_PASSWORD = st.text_input('Enter NEO4J_PASSWORD', type='password')
+    astradb_api_key = st.text_input('Astra DB API Key', type='password')
+    neo4j_password = st.text_input('Enter NEO4J_PASSWORD', type='password')
     google_api_key = st.text_input('Google API Key', type='password')
     question = st.text_area("Ask me a question")
     # Dropdown for function selection
@@ -485,16 +486,16 @@ with st.sidebar:
     if st.sidebar.button("Call Function"):
         if function_choice == "Relational_Database":
             response = rdbms_main(google_api_key,question,col1)
-            st.write("Relational_Database")
-            st.write(response)
+            col1.write("Relational_Database")
+            col1.write(response)
         elif function_choice == "Graph_Database":
-            gdb_response = graphDB_main(NEO4J_PASSWORD,google_api_key,question,col1)
-            st.write("Graph_Database")
-            st.write(gdb_response)
+            gdb_response = graphDB_main(neo4j_password,google_api_key,question,col1)
+            col1.write("Graph_Database")
+            col1.write(gdb_response)
         elif function_choice == "Vector_Database":
-            vdb_response = astradb_main_funct(ASTRADB_API_KEY,google_api_key,question,col1)
-            st.write("Vector_Database")
-            st.write(vdb_response)
+            vdb_response = astradb_main_funct(astradb_api_key,google_api_key,question,col1)
+            col1.write("Vector_Database")
+            col1.write(vdb_response)
         else:
             result = "Invalid choice"
 
