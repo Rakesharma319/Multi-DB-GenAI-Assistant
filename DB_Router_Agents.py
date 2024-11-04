@@ -15,15 +15,10 @@ conn = sqlite3.connect('Chinook.db')
 
 from langchain_community.graphs import Neo4jGraph
 import os
-# Streamlit app
-st.title("🦜🔗 Database Router Agents GenAI Assistant")
-col1, col2 = st.columns((3, 1))
 
-google_api_key = st.sidebar.text_input('Google API Key', type='password')
-NEO4J_PASSWORD=st.sidebar.text_input("Enter NEO4J_PASSWORD",type="password")
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
+from langchain_astradb import AstraDBVectorStore
 
-# User input for name
-question = st.sidebar.text_area("Ask me a question")
 
 #---- RDBMS Function -----------
 def rdbms_main(google_api_key,user_input):
@@ -419,20 +414,95 @@ def graphDB_main(NEO4J_PASSWORD,google_api_key,question):
     # return llm_response
 #-------- Graph DB end ------------
 
-# Dropdown for function selection
-function_choice = st.sidebar.selectbox("Choose a function to call", ["Relational_Database", "Graph_Database"])
+# ---------------- vector db main function -----------
 
-# Button to call the function
-if st.sidebar.button("Call Function"):
-    if function_choice == "Relational_Database":
-        # rdbms_main()
-        response = rdbms_main(google_api_key,question)
-        col1.write("Relational_Database")
-        col1.write(response)
-    elif function_choice == "Graph_Database":
-        gdb_response = graphDB_main(NEO4J_PASSWORD,google_api_key,question)
-        col1.write("Graph_Database")
-        col1.write(gdb_response)
+def astradb_main_funct(ASTRADB_API_KEY,GOOGLE_API_KEY,question):
+    
+    def get_final_output_from_model():
+        model = genai.GenerativeModel('gemini-1.5-flash')
+        response = model.generate_content(prompt_template)
+        SQL_Code = response.text
+        return response.text
+    
+    # Streamlit App 
+    
+    st.markdown(
+        """# **Vector Database Gemini Assistant**
+    This is an experimental assistant that requires OpenAI access. The app demonstrates the use of Gemini AI to support getting insights from Vector Database by just asking questions. 
+    This assistant has RAG technique used to get more accurate response out of similirity search output of vector db.
+    """
+    )
+    col1, col2 = st.columns((3, 1))
+    
+    if question:
+        os.environ["ASTRA_DB_API_ENDPOINT"] ="https://5e5c552b-3a72-4b4b-bd83-0e2e0f12347a-us-east-2.apps.astra.datastax.com"
+        os.environ["ASTRADB_API_KEY"] =ASTRADB_API_KEY
+        os.environ["GOOGLE_API_KEY"] = GOOGLE_API_KEY
+        
+        genai.configure(api_key=GOOGLE_API_KEY)
+        # Configure your embedding model and vector store
+        embedding = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
+        
+        vstore = AstraDBVectorStore(
+            collection_name="qa_mini_demo2",
+            embedding=embedding,
+            token=os.getenv("ASTRADB_API_KEY"),
+            api_endpoint=os.getenv("ASTRA_DB_API_ENDPOINT"),
+        )
+    
+        retriever = vstore.as_retriever(search_kwargs={"k": 3})
+        retriver_op = retriever.invoke(question)
+        
+        prompt_template = f"""Answer the question based only on the supplied context. If you don't know the answer, say you don't know the answer.
+        If you know the answer then give your openion on the final result in 100 words, and tag it with 'My Openion' followed by original result.
+        Context: {retriver_op}
+        Question: {question}
+        Your answer:
+        Your Openion :
+        """
+        
+        final_output = get_final_output_from_model()
+        
+        col1.write("Astra vector store configured")
+        col1.write("User Question:")
+        col1.write(question)
+        col1.write("Response:")
+        col1.write(final_output)
+        col1.write("similar search output")
+        col1.write(retriver_op)
+    
     else:
-        result = "Invalid choice"
+        st.write("Please ask question !!")
+
+#------ Astra DB end --------------------------
+
+# Stramlit app
+
+st.title("🦜🔗 Database Router Agents GenAI Assistant")
+col1, col2 = st.columns((3, 1))
+
+with st.sidebar:
+    ASTRADB_API_KEY = st.text_input('Astra DB API Key', type='password')
+    NEO4J_PASSWORD = st.text_input('Enter NEO4J_PASSWORD', type='password')
+    GOOGLE_API_KEY = st.text_input('Google API Key', type='password')
+    question = st.text_area("Ask me a question")
+    # Dropdown for function selection
+    function_choice = st.selectbox("Choose a function to call", ["Relational_Database", "Graph_Database","Vector_Database"])
+
+    # Button to call the function
+    if st.sidebar.button("Call Function"):
+        if function_choice == "Relational_Database":
+            response = rdbms_main(google_api_key,question)
+            col1.write("Relational_Database")
+            col1.write(response)
+        elif function_choice == "Graph_Database":
+            gdb_response = graphDB_main(NEO4J_PASSWORD,google_api_key,question)
+            col1.write("Graph_Database")
+            col1.write(gdb_response)
+        elif function_choice == "Vector_Database":
+            vdb_response = astradb_main_funct(ASTRADB_API_KEY,GOOGLE_API_KEY,question)
+            col1.write("Vector_Database")
+            col1.write(vdb_response)
+        else:
+            result = "Invalid choice"
 
