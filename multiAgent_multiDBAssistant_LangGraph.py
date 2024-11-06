@@ -22,17 +22,19 @@ stv = "col1"
 GROQ_API_KEY = st.sidebar.text_input('Enter groq password', type='password')
   
 # Run
-question1 = "List all movies by Imdb ratings , and sort by imdb rating ascending?" #--- GraphDB
-question2 = "Who is Virat Kohali?" #-- wiki
-question3 = "visualize all albums by month?" # -- rdbms
-question4 = "write a quote to become richer, and aslo show tags and author?" #--- vector
+# question = "List all movies by Imdb ratings , and sort by imdb rating ascending?" #--- GraphDB
+question = "Who is Virat Kohali?" #-- wiki
+# question = "visualize all albums by month?" # -- rdbms
+# question = "write a quote to become richer, and aslo show tags and author?" #--- vector
 
 # question = st.selectbox(
 #     "How would you like to be contacted?",
 #     (question1,question2,question3,question4),
 # )
 # question=option
-question = st.sidebar.text_input('Ask Question')
+
+# question = st.sidebar.text_input('Ask Question')
+
 # st.write("You selected:", question)
 
 ## --------- Tools Code start -----
