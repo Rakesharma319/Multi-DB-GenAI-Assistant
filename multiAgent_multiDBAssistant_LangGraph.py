@@ -26,12 +26,12 @@ question3 = "visualize all albums by month?" # -- rdbms
 question4 = "write a quote to become richer, and aslo show tags and author?" #--- vector
 
 GROQ_API_KEY = st.sidebar.text_input('Enter groq password', type='password')
-choose_input_type = st.radio("How you want to ask question 👉",key="askquestion",options=["Drop-down list of question", "Mannual type question"])
+choose_input_type = st.sidebar.radio("How you want to ask question 👉",key="askquestion",options=["Drop-down list of question", "Mannual type question"])
 
 if choose_input_type == 'Drop-down list of question':
-    question = st.selectbox("How would you like to be contacted?",(question1,question2,question3,question4),)
+    question = st.sidebar.selectbox("How would you like to be contacted?",(question1,question2,question3,question4),)
 elif choose_input_type == 'Mannual type question':
-    question = st.text_area("Ask me a question")
+    question = st.sidebar.text_area("Ask me a question")
 
 # question=option
 
