@@ -23,7 +23,7 @@ GROQ_API_KEY = st.sidebar.text_input('Enter groq password', type='password')
   
 # Run
 question1 = "List all movies by Imdb ratings , and sort by imdb rating ascending?" #--- GraphDB
-question2 = "Who is Virat Kohali?" #-- wiki
+question2 = "Who is virat kohli?" #-- wiki
 question3 = "visualize all albums by month?" # -- rdbms
 question4 = "write a quote to become richer, and aslo show tags and author?" #--- vector
 
