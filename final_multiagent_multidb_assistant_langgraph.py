@@ -61,7 +61,7 @@ wiki=WikipediaQueryRun(api_wrapper=api_wrapper)
 
 ### 2. RDBMS_main start
 
-def rdbms_main(google_api_key,user_input,st):
+def rdbms_main(google_api_key,question,st):
     def get_all_table_names():
         import sqlite3
         import pandas as pd
@@ -212,18 +212,18 @@ def rdbms_main(google_api_key,user_input,st):
     #google_api_key = st.sidebar.text_input('Google API Key', type='password')
     genai.configure(api_key = google_api_key)
     
-    #user_input = st.sidebar.text_area("Ask me a question")
+    #question = st.sidebar.text_area("Ask me a question")
     
     table_names = get_all_table_names()
     
     prompt_tableList = f"""You are an expert analyst,
-    Analyse the user_input and table_name Then Return the names of ALL the SQL tables that MIGHT be relevant to the user question. \
+    Analyse the question and table_name Then Return the names of ALL the SQL tables that MIGHT be relevant to the user question. \
     The tables are:
     {table_names}
     Remember to include ALL POTENTIALLY RELEVANT tables, even if you're not sure that they're needed.
     
     Here is user input:
-    {user_input}
+    {question}
     
     Strictly only return list of table_name in pandas list format. No any other text.
     """
@@ -235,7 +235,7 @@ def rdbms_main(google_api_key,user_input,st):
     You are a smart AI assistant to help answer business questions based on analyzing data.
     You can plan solving the question with one or multiple thought step. At each thought step, you can write python code to analyze data to assist you. Observe what you get at each step to plan for the next step.
     
-    Here is the user question: {user_input}
+    Here is the user question: {question}
     
         You are given following utilities to help you retrieve data and communicate your result to end user.
         1. execute_sql_query(sql_query: str): A Python function can query data from the Sqlite3 given a query which you need to create. The query has to be syntactically correct for Sqlite3 and 
@@ -632,7 +632,7 @@ def rdbms_query(state):
     # Retrieval
     # documents = retriever.invoke(question)
     # documents = rdbms_main("123654789ghjm_rdbms","jgvmsdbf11333",question,"col1")
-    documents = rdbms_main(google_api_key,user_input,st)
+    documents = rdbms_main(google_api_key,question,st)
     return {"documents": documents, "question": question}
 
 def graphDB_query(state):
