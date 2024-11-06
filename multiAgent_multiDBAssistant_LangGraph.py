@@ -19,18 +19,19 @@ api_key = "123654789ghjm"
 db_password = "jgvmsdbf11333"
 stv = "col1"
 
-GROQ_API_KEY = st.sidebar.text_input('Enter groq password', type='password')
-  
 # Run
 question1 = "List all movies by Imdb ratings , and sort by imdb rating ascending?" #--- GraphDB
 question2 = "Who is virat kohli?" #-- wiki
 question3 = "visualize all albums by month?" # -- rdbms
 question4 = "write a quote to become richer, and aslo show tags and author?" #--- vector
 
-question = st.selectbox(
-    "How would you like to be contacted?",
-    (question1,question2,question3,question4),
-)
+GROQ_API_KEY = st.sidebar.text_input('Enter groq password', type='password')
+choose_input_type = st.radio("How you want to ask question 👉",key="askquestion",options=["Drop-down list of question", "Mannual type question"])
+
+if askquestion == 'Drop-down list of question':
+    question = st.selectbox("How would you like to be contacted?",(question1,question2,question3,question4),)
+elif askquestion == 'Mannual type question':
+    question = st.text_area("Ask me a question")
 
 # question=option
 
