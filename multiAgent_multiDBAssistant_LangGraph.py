@@ -34,7 +34,7 @@ question = st.selectbox(
 
 # question=option
 
-question = st.sidebar.text_input('Ask Question')
+# question = st.sidebar.text_input('Ask Question')
 
 # st.write("You selected:", question)
 
