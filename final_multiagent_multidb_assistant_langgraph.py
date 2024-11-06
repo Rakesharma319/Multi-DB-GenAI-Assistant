@@ -43,7 +43,7 @@ question3 = "visualize all albums by month?" # -- rdbms
 question4 = "write a quote to become richer, and aslo show tags and author?" #--- vector
 
 # Define the parameters
-astradb_api_key = st.sidebar.text_input('Astra DB API Key', type='password')
+ASTRADB_API_KEY = st.sidebar.text_input('Astra DB API Key', type='password')
 NEO4J_PASSWORD = st.sidebar.text_input('Enter NEO4J_PASSWORD', type='password')
 google_api_key = st.sidebar.text_input('Google API Key', type='password')
 GROQ_API_KEY = st.sidebar.text_input('Enter groq password', type='password')
