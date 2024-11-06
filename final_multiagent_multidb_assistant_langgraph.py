@@ -705,33 +705,33 @@ def route_question(state):
         raise ValueError(f"Unknown datasource: {source.datasource}")
 
 
-if astradb_api_key and NEO4J_PASSWORD and google_api_key and GROQ_API_KEY and question:
-    workflow = StateGraph(GraphState)
-    # Define the nodes
-    workflow.add_node("wiki_search", wiki_search)  # web search
-    workflow.add_node("rdbms_query", rdbms_query)
-    workflow.add_node("graphDB_query", graphDB_query)
-    workflow.add_node("retrieve", retrieve)
-    
-    # Build graph
-    workflow.add_conditional_edges(
-        START,
-        route_question,
-        {
-            "wikipedia": "wiki_search",
-            "vectorstore": "retrieve",
-            "relationalDB": "rdbms_query",
-            "graphDB": "graphDB_query",
-        },
-    )
-    workflow.add_edge( "retrieve", END)
-    workflow.add_edge( "wiki_search", END)
-    workflow.add_edge( "rdbms_query", END)
-    workflow.add_edge( "graphDB_query", END)
-    # Compile
-    app = workflow.compile()
 
-#if astradb_api_key and NEO4J_PASSWORD and google_api_key and GROQ_API_KEY and question:
+workflow = StateGraph(GraphState)
+# Define the nodes
+workflow.add_node("wiki_search", wiki_search)  # web search
+workflow.add_node("rdbms_query", rdbms_query)
+workflow.add_node("graphDB_query", graphDB_query)
+workflow.add_node("retrieve", retrieve)
+
+# Build graph
+workflow.add_conditional_edges(
+    START,
+    route_question,
+    {
+        "wikipedia": "wiki_search",
+        "vectorstore": "retrieve",
+        "relationalDB": "rdbms_query",
+        "graphDB": "graphDB_query",
+    },
+)
+workflow.add_edge( "retrieve", END)
+workflow.add_edge( "wiki_search", END)
+workflow.add_edge( "rdbms_query", END)
+workflow.add_edge( "graphDB_query", END)
+# Compile
+app = workflow.compile()
+
+if astradb_api_key and NEO4J_PASSWORD and google_api_key and GROQ_API_KEY and question:
     inputs = {"question": question}
     for output in app.stream(inputs):
         for key, value in output.items():
