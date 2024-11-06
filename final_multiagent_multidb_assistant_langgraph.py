@@ -52,7 +52,14 @@ astradb_api_key = st.sidebar.text_input('Astra DB API Key', type='password')
 NEO4J_PASSWORD = st.sidebar.text_input('Enter NEO4J_PASSWORD', type='password')
 google_api_key = st.sidebar.text_input('Google API Key', type='password')
 GROQ_API_KEY = st.sidebar.text_input('Enter groq password', type='password')
-question = st.sidebar.selectbox("How would you like to be contacted?",(question1,question2,question3,question4),)
+# question = st.sidebar.selectbox("How would you like to be contacted?",(question1,question2,question3,question4),)
+
+choose_input_type = st.sidebar.radio("How you want to ask question 👉",key="askquestion",options=["Drop-down list of question", "Mannual type question"])
+
+if choose_input_type == 'Drop-down list of question':
+    question = st.sidebar.selectbox("How would you like to be contacted?",(question1,question2,question3,question4),)
+elif choose_input_type == 'Mannual type question':
+    question = st.sidebar.text_area("Ask me a question")
 
 ## --------- Tools Code start -----
 
