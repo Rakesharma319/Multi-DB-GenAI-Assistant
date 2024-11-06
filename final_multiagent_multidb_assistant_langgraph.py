@@ -42,9 +42,9 @@ st.info("""This is an experimental Multi-Database Gemini Gen AI assistant that r
 
 
 # Run
-question1 = "List all movies by Imdb ratings , and sort by imdb rating ascending?" #--- GraphDB
+question1 = "visualize top 20 movies by Imdb ratings , and sort by imdb rating ascending?" #--- GraphDB
 question2 = "Who is virat kohli?" #-- wiki
-question3 = "visualize all albums by month?" # -- rdbms
+question3 = "visualize albums counts by month?" # -- rdbms
 question4 = "write a quote to become richer, and aslo show tags and author?" #--- vector
 
 # Define the parameters
