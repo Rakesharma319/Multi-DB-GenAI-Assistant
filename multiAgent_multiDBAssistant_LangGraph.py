@@ -17,7 +17,7 @@ import streamlit as st
 # Define the parameters
 api_key = "123654789ghjm"
 db_password = "jgvmsdbf11333"
-st = "col1"
+stv = "col1"
 
 GROQ_API_KEY = st.text_input('Enter groq password', type='password')
   
@@ -42,7 +42,7 @@ wiki=WikipediaQueryRun(api_wrapper=api_wrapper)
 
 ### 2. RDBMS_main start
 
-def rdbms_main(api_key,db_password,question,st):
+def rdbms_main(api_key,db_password,question,stv):
   v1 = api_key
   v2 = db_password
   v3 = question
@@ -53,7 +53,7 @@ def rdbms_main(api_key,db_password,question,st):
 
 ### 3. Graph DB start
 
-def graphDB_main(api_key,db_password,question,st):
+def graphDB_main(api_key,db_password,question,stv):
   v1 = api_key
   v2 = db_password
   v3 = question
@@ -64,7 +64,7 @@ def graphDB_main(api_key,db_password,question,st):
 
 ### 4. VectorStore(RAG application) start
 
-def fun_retriver(api_key,db_password,question,st):
+def fun_retriver(api_key,db_password,question,stv):
   v1 = api_key
   v2 = db_password
   v3 = question
@@ -169,7 +169,7 @@ def rdbms_query(state):
     # Retrieval
     # documents = retriever.invoke(question)
     # documents = rdbms_main("123654789ghjm_rdbms","jgvmsdbf11333",question,"col1")
-    documents = rdbms_main(api_key,db_password,question,st)
+    documents = rdbms_main(api_key,db_password,question,stv)
     return {"documents": documents, "question": question}
 
 def graphDB_query(state):
@@ -188,7 +188,7 @@ def graphDB_query(state):
     # Retrieval
     # documents = retriever.invoke(question)
     # documents = graphDB_main("123654789ghjm_graphDB","jgvmsdbf11333",question,"col1")
-    documents = graphDB_main(api_key,db_password,question,st)
+    documents = graphDB_main(api_key,db_password,question,stv)
     return {"documents": documents, "question": question}
 
 def wiki_search(state):
