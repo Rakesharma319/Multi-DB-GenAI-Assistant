@@ -311,7 +311,7 @@ def rdbms_main(google_api_key,question,st):
     
     """
     response = get_final_output_from_model()
-    display_output(response,col1)
+    display_output(response,st)
 
 ### 2. RDBMS_main End
 
@@ -478,7 +478,7 @@ def graphDB_main(NEO4J_PASSWORD,google_api_key,question,st):
     model = genai.GenerativeModel('gemini-1.5-flash')
     response = model.generate_content(CYPHER_GENERATION_TEMPLATE)
     llm_response = response.text
-    display_output(llm_response,col1)
+    display_output(llm_response,st)
     
 ### 3. Graph DB end
 
