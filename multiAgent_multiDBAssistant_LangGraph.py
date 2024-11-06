@@ -28,9 +28,9 @@ question4 = "write a quote to become richer, and aslo show tags and author?" #--
 GROQ_API_KEY = st.sidebar.text_input('Enter groq password', type='password')
 choose_input_type = st.radio("How you want to ask question 👉",key="askquestion",options=["Drop-down list of question", "Mannual type question"])
 
-if askquestion == 'Drop-down list of question':
+if choose_input_type == 'Drop-down list of question':
     question = st.selectbox("How would you like to be contacted?",(question1,question2,question3,question4),)
-elif askquestion == 'Mannual type question':
+elif choose_input_type == 'Mannual type question':
     question = st.text_area("Ask me a question")
 
 # question=option
