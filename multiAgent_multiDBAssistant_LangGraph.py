@@ -29,7 +29,7 @@ GROQ_API_KEY = st.sidebar.text_input('Enter groq password', type='password')
 choose_input_type = st.sidebar.radio("How you want to ask question 👉",key="askquestion",options=["Drop-down list of question", "Mannual type question"])
 
 if choose_input_type == 'Drop-down list of question':
-    question = st.sidebar.selectbox("Select question: ",(question1,question2,question3,question4), index='select question from list',)
+    question = st.sidebar.selectbox("Select question: ",(question1,question2,question3,question4), index=None)
 elif choose_input_type == 'Mannual type question':
     question = st.sidebar.text_area("Ask me a question")
 
