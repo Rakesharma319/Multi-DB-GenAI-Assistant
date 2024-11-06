@@ -40,12 +40,12 @@ question3 = "visualize all albums by month?" # -- rdbms
 question4 = "write a quote to become richer, and aslo show tags and author?" #--- vector
 
 # Define the parameters
-# with st.sidebar:
-#     astradb_api_key = st.text_input('Astra DB API Key', type='password')
-#     neo4j_password = st.text_input('Enter NEO4J_PASSWORD', type='password')
-#     google_api_key = st.text_input('Google API Key', type='password')
-#     GROQ_API_KEY = st.text_input('Enter groq password', type='password')
-#     question = st.selectbox("How would you like to be contacted?",(question1,question2,question3,question4),)
+with st.sidebar:
+    astradb_api_key = st.text_input('Astra DB API Key', type='password')
+    neo4j_password = st.text_input('Enter NEO4J_PASSWORD', type='password')
+    google_api_key = st.text_input('Google API Key', type='password')
+    GROQ_API_KEY = st.text_input('Enter groq password', type='password')
+    question = st.selectbox("How would you like to be contacted?",(question1,question2,question3,question4),)
 
 ## --------- Tools Code start -----
 
@@ -717,17 +717,15 @@ with st.sidebar:
     question = st.selectbox("How would you like to be contacted?",(question1,question2,question3,question4),)
     
     if question:
-    inputs = {
-        "question": question
-    }
-    for output in app.stream(inputs):
-        for key, value in output.items():
-            # Node
-            st.write(f"Node '{key}':")
-            # Optional: print full state at each node
-            # pprint.pprint(value["keys"], indent=2, width=80, depth=None)
-        st.write("\n---\n")
-    
-    # Final generation
-    # pprint(value['documents'][0].dict()['metadata']['description'])
-    st.write(value['documents'])
+        inputs = {"question": question}
+        for output in app.stream(inputs):
+            for key, value in output.items():
+                # Node
+                st.write(f"Node '{key}':")
+                # Optional: print full state at each node
+                # pprint.pprint(value["keys"], indent=2, width=80, depth=None)
+            st.write("\n---\n")
+        
+        # Final generation
+        # pprint(value['documents'][0].dict()['metadata']['description'])
+        st.write(value['documents'])
