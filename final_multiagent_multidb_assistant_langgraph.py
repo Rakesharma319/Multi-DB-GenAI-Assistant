@@ -199,7 +199,7 @@ def rdbms_main(google_api_key,question,st):
         python_code2 = python_code2.replace("python\n","")
         
         actions3 = responce.split('\n')
-               
+        
         st.markdown(
         """# **Relational Database Gemini Assistant**
         This is an experimental assistant that requires Gemini Gen AI access. The app demonstrates the use of Gemini AI to support getting insights from Relational Database by just asking questions."""
@@ -487,9 +487,9 @@ def astradb_main_funct(ASTRADB_API_KEY,google_api_key,question,st):
         SQL_Code = response.text
         return response.text
     
-    # Streamlit App 
-    st.markdown(
-        """# **Vector Database Gemini Assistant**
+    # Streamlit App
+    
+    st.markdown("""# **Vector Database Gemini Assistant**
     This is an experimental assistant that requires Gemini Gen AI access. The app demonstrates the use of Gemini AI to support getting insights from Vector Database by just asking questions. 
     This assistant has RAG technique used to get more accurate response out of similirity search output of vector db.
     """
@@ -536,6 +536,8 @@ def astradb_main_funct(ASTRADB_API_KEY,google_api_key,question,st):
         st.write("Please ask question !!")
         
 ### 4. VectorStore(RAG application)  end
+
+
 
 ## ----- Lag Graph Start --------
 # Data model
