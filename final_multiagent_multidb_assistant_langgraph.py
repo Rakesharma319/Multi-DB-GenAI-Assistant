@@ -54,11 +54,21 @@ question = st.sidebar.selectbox("How would you like to be contacted?",(question1
 ### 1. wikipedia start
 
 ## Arxiv and wikipedia Tools
-arxiv_wrapper=ArxivAPIWrapper(top_k_results=1, doc_content_chars_max=200)
-arxiv=ArxivQueryRun(api_wrapper=arxiv_wrapper)
 
-api_wrapper=WikipediaAPIWrapper(top_k_results=1,doc_content_chars_max=500)
-wiki=WikipediaQueryRun(api_wrapper=api_wrapper)
+def wiki(question):
+    arxiv_wrapper=ArxivAPIWrapper(top_k_results=1, doc_content_chars_max=200)
+    arxiv=ArxivQueryRun(api_wrapper=arxiv_wrapper)
+
+    api_wrapper=WikipediaAPIWrapper(top_k_results=1,doc_content_chars_max=500)
+    wiki=WikipediaQueryRun(api_wrapper=api_wrapper)
+    
+    docs = wiki.invoke({"query": question})
+    
+    st.markdown(
+        """# **Wikipedia Assistant**
+        This is an experimental assistant that requires Gemini Gen AI access. The app demonstrates the use of Gemini AI to support getting insights from wikipedia by just asking questions."""
+        )
+    st.write(docs)
 
 ### 1. wikipedia end
 
@@ -189,6 +199,12 @@ def rdbms_main(google_api_key,question,st):
         python_code2 = python_code2.replace("python\n","")
         
         actions3 = responce.split('\n')
+        
+        st.markdown(
+        """# **Relational Database Gemini Assistant**
+        This is an experimental assistant that requires Gemini Gen AI access. The app demonstrates the use of Gemini AI to support getting insights from Relational Database by just asking questions."""
+        )
+        
         for action3 in actions3:
             if "Question" in action3:
                 st.write(action3)
@@ -366,6 +382,12 @@ def graphDB_main(NEO4J_PASSWORD,google_api_key,question,st):
         python_code2 = python_code2.replace("python\n","")
         
         actions3 = llm_response.split('\n')
+        
+        st.markdown(
+        """# **Graph Database Gemini Assistant**
+        This is an experimental assistant that requires Gemini Gen AI access. The app demonstrates the use of Gemini AI to support getting insights from Graph Database by just asking questions."""
+        )
+        
         for action3 in actions3:
             if "Question" in action3:
                 st.write(action3)
@@ -468,7 +490,7 @@ def astradb_main_funct(ASTRADB_API_KEY,google_api_key,question,st):
     # Streamlit App 
     st.markdown(
         """# **Vector Database Gemini Assistant**
-    This is an experimental assistant that requires OpenAI access. The app demonstrates the use of Gemini AI to support getting insights from Vector Database by just asking questions. 
+    This is an experimental assistant that requires Gemini Gen AI access. The app demonstrates the use of Gemini AI to support getting insights from Vector Database by just asking questions. 
     This assistant has RAG technique used to get more accurate response out of similirity search output of vector db.
     """
     )
@@ -514,33 +536,6 @@ def astradb_main_funct(ASTRADB_API_KEY,google_api_key,question,st):
         st.write("Please ask question !!")
         
 ### 4. VectorStore(RAG application)  end
-
-
-
-# Define the parameters
-# with st.sidebar:
-#     astradb_api_key = st.text_input('Astra DB API Key', type='password')
-#     neo4j_password = st.text_input('Enter NEO4J_PASSWORD', type='password')
-#     google_api_key = st.text_input('Google API Key', type='password')
-#     GROQ_API_KEY = st.text_input('Enter groq password', type='password')
-#     question = st.selectbox("How would you like to be contacted?",(question1,question2,question3,question4),)
-    
-#     if astradb_api_key and neo4j_password and google_api_key and GROQ_API_KEY and question:
-#         inputs = {"question": question}
-#         for output in app.stream(inputs):
-#             for key, value in output.items():
-#                 # Node
-#                 st.write(f"Node '{key}':")
-#                 # Optional: print full state at each node
-#                 # pprint.pprint(value["keys"], indent=2, width=80, depth=None)
-#             st.write("\n---\n")
-        
-#         # Final generation
-#         # pprint(value['documents'][0].dict()['metadata']['description'])
-#         st.write(value['documents'])
-        
-#     else:
-#         st.write('Please fill all required parameters')
 
 
 
@@ -673,7 +668,8 @@ def wiki_search(state):
     st.write(question)
 
     # Wiki search
-    docs = wiki.invoke({"query": question})
+    #docs = wiki.invoke({"query": question})
+    docs = wiki()
     # st.write(docs["summary"])
     wiki_results = docs
     # wiki_results = Document(page_content=wiki_results)
