@@ -32,6 +32,9 @@ from typing_extensions import TypedDict
 from langchain.schema import Document
 from langgraph.graph import END, StateGraph, START
 
+# Stramlit app
+col1, col2 = st.columns((3, 1))
+col1.title("🦜🔗 Database Router Agents GenAI Assistant")
 
 # Run
 question1 = "List all movies by Imdb ratings , and sort by imdb rating ascending?" #--- GraphDB
