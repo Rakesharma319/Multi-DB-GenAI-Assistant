@@ -32,7 +32,7 @@ question4 = "write a quote to become richer, and aslo show tags and author?" #--
 #     (question1,question2,question3,question4),
 # )
 # question=option
-question = st.sidebar.text_input('Ask Question',question1)
+question = st.sidebar.text_input('Ask Question')
 # st.write("You selected:", question)
 
 ## --------- Tools Code start -----
