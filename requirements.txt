@@ -10,3 +10,8 @@ langchain-community
 neo4j
 langchain_astradb
 langchain_google_genai
+langgraph
+langchain_community
+arxiv
+wikipedia
+langchain-groq
