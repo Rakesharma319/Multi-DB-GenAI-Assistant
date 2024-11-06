@@ -19,8 +19,7 @@ api_key = "123654789ghjm"
 db_password = "jgvmsdbf11333"
 st = "col1"
 
-with st.sidebar:
-    GROQ_API_KEY = st.text_input('Enter groqu password', type='password')
+GROQ_API_KEY = st.text_input('Enter groq password', type='password')
   
 # Run
 # question = "List all movies by Imdb ratings , and sort by imdb rating ascending?" #--- GraphDB
