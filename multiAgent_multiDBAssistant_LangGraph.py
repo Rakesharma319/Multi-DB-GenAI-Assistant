@@ -113,7 +113,7 @@ question_router = route_prompt | structured_llm_router
 # question = "visualize all albums by month?"
 question = "write a quote to become richer, and aslo show tags and author?"
 
-print(
+st.write(
     question_router.invoke(
         {"question": question}
     )
@@ -145,7 +145,7 @@ def retrieve(state):
     Returns:
         state (dict): New key added to state, documents, that contains retrieved documents
     """
-    print("---RETRIEVE---")
+    st.write("---RETRIEVE---")
     question = state["question"]
 
     # Retrieval
@@ -163,7 +163,7 @@ def rdbms_query(state):
     Returns:
         state (dict): New key added to state, documents, that contains retrieved documents
     """
-    print("---RDBMS Query---")
+    st.write("---RDBMS Query---")
     question = state["question"]
 
     # Retrieval
@@ -202,10 +202,10 @@ def wiki_search(state):
         state (dict): Updates documents key with appended web results
     """
 
-    print("---wikipedia---")
-    print("---HELLO--")
+    st.write("---wikipedia---")
+    st.write("---HELLO--")
     question = state["question"]
-    print(question)
+    st.write(question)
 
     # Wiki search
     docs = wiki.invoke({"query": question})
@@ -227,20 +227,20 @@ def route_question(state):
         str: Next node to call
     """
 
-    print("---ROUTE QUESTION---")
+    st.write("---ROUTE QUESTION---")
     question = state["question"]
     source = question_router.invoke({"question": question})
     if source.datasource == "wikipedia":
-        print("---ROUTE QUESTION TO Wiki SEARCH---")
+        st.write("---ROUTE QUESTION TO Wiki SEARCH---")
         return "wikipedia"
     elif source.datasource == "relationalDB":
-        print("---ROUTE QUESTION TO RDBMS---")
+        st.write("---ROUTE QUESTION TO RDBMS---")
         return "relationalDB"
     elif source.datasource == "vectorstore":
-        print("---ROUTE QUESTION TO RAG---")
+        st.write("---ROUTE QUESTION TO RAG---")
         return "vectorstore"
     elif source.datasource == "graphDB":
-        print("---ROUTE QUESTION TO GRAPHDB---")
+        st.write("---ROUTE QUESTION TO GRAPHDB---")
         return "graphDB"
     else:
         raise ValueError(f"Unknown datasource: {source.datasource}")
