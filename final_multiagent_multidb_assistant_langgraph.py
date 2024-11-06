@@ -716,7 +716,7 @@ with st.sidebar:
     GROQ_API_KEY = st.text_input('Enter groq password', type='password')
     question = st.selectbox("How would you like to be contacted?",(question1,question2,question3,question4),)
     
-    if question:
+    if astradb_api_key and neo4j_password and google_api_key and GROQ_API_KEY and question:
         inputs = {"question": question}
         for output in app.stream(inputs):
             for key, value in output.items():
@@ -729,3 +729,6 @@ with st.sidebar:
         # Final generation
         # pprint(value['documents'][0].dict()['metadata']['description'])
         st.write(value['documents'])
+        
+    else:
+        st.write('Please fill all required parameters')
