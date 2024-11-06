@@ -40,12 +40,12 @@ question3 = "visualize all albums by month?" # -- rdbms
 question4 = "write a quote to become richer, and aslo show tags and author?" #--- vector
 
 # Define the parameters
-# with st.sidebar:
-#     astradb_api_key = st.text_input('Astra DB API Key', type='password')
-#     neo4j_password = st.text_input('Enter NEO4J_PASSWORD', type='password')
-#     google_api_key = st.text_input('Google API Key', type='password')
-#     GROQ_API_KEY = st.text_input('Enter groq password', type='password')
-#     question = st.selectbox("How would you like to be contacted?",(question1,question2,question3,question4),)
+with st.sidebar:
+    astradb_api_key = st.text_input('Astra DB API Key', type='password')
+    neo4j_password = st.text_input('Enter NEO4J_PASSWORD', type='password')
+    google_api_key = st.text_input('Google API Key', type='password')
+    GROQ_API_KEY = st.text_input('Enter groq password', type='password')
+    question = st.selectbox("How would you like to be contacted?",(question1,question2,question3,question4),)
 
 ## --------- Tools Code start -----
 
@@ -517,29 +517,29 @@ def astradb_main_funct(ASTRADB_API_KEY,GOOGLE_API_KEY,question,st):
 
 
 # Define the parameters
-with st.sidebar:
-    astradb_api_key = st.text_input('Astra DB API Key', type='password')
-    neo4j_password = st.text_input('Enter NEO4J_PASSWORD', type='password')
-    google_api_key = st.text_input('Google API Key', type='password')
-    GROQ_API_KEY = st.text_input('Enter groq password', type='password')
-    question = st.selectbox("How would you like to be contacted?",(question1,question2,question3,question4),)
+# with st.sidebar:
+#     astradb_api_key = st.text_input('Astra DB API Key', type='password')
+#     neo4j_password = st.text_input('Enter NEO4J_PASSWORD', type='password')
+#     google_api_key = st.text_input('Google API Key', type='password')
+#     GROQ_API_KEY = st.text_input('Enter groq password', type='password')
+#     question = st.selectbox("How would you like to be contacted?",(question1,question2,question3,question4),)
     
-    if astradb_api_key and neo4j_password and google_api_key and GROQ_API_KEY and question:
-        inputs = {"question": question}
-        for output in app.stream(inputs):
-            for key, value in output.items():
-                # Node
-                st.write(f"Node '{key}':")
-                # Optional: print full state at each node
-                # pprint.pprint(value["keys"], indent=2, width=80, depth=None)
-            st.write("\n---\n")
+#     if astradb_api_key and neo4j_password and google_api_key and GROQ_API_KEY and question:
+#         inputs = {"question": question}
+#         for output in app.stream(inputs):
+#             for key, value in output.items():
+#                 # Node
+#                 st.write(f"Node '{key}':")
+#                 # Optional: print full state at each node
+#                 # pprint.pprint(value["keys"], indent=2, width=80, depth=None)
+#             st.write("\n---\n")
         
-        # Final generation
-        # pprint(value['documents'][0].dict()['metadata']['description'])
-        st.write(value['documents'])
+#         # Final generation
+#         # pprint(value['documents'][0].dict()['metadata']['description'])
+#         st.write(value['documents'])
         
-    else:
-        st.write('Please fill all required parameters')
+#     else:
+#         st.write('Please fill all required parameters')
 
 
 
@@ -736,4 +736,19 @@ workflow.add_edge( "graphDB_query", END)
 # Compile
 app = workflow.compile()
 
-
+if astradb_api_key and neo4j_password and google_api_key and GROQ_API_KEY and question:
+    inputs = {"question": question}
+    for output in app.stream(inputs):
+        for key, value in output.items():
+            # Node
+            st.write(f"Node '{key}':")
+            # Optional: print full state at each node
+            # pprint.pprint(value["keys"], indent=2, width=80, depth=None)
+        st.write("\n---\n")
+    
+    # Final generation
+    # pprint(value['documents'][0].dict()['metadata']['description'])
+    st.write(value['documents'])
+    
+else:
+    st.write('Please fill all required parameters')
