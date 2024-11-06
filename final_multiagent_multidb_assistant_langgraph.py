@@ -57,7 +57,7 @@ GROQ_API_KEY = st.sidebar.text_input('Enter groq password', type='password')
 choose_input_type = st.sidebar.radio("How you want to ask question 👉",key="askquestion",options=["Drop-down list of question", "Mannual type question"])
 
 if choose_input_type == 'Drop-down list of question':
-    question = st.sidebar.selectbox("Select question:",("",question1,question2,question3,question4),)
+    question = st.sidebar.selectbox("Select question: ",(question1,question2,question3,question4),index=None,placeholder="Select question from list...")
 elif choose_input_type == 'Mannual type question':
     question = st.sidebar.text_area("Ask me a question")
 
@@ -743,7 +743,7 @@ workflow.add_edge( "graphDB_query", END)
 # Compile
 app = workflow.compile()
 
-if astradb_api_key and NEO4J_PASSWORD and google_api_key and GROQ_API_KEY and question:
+if (astradb_api_key and NEO4J_PASSWORD and google_api_key and GROQ_API_KEY) and question<>'Select question from list...':
     inputs = {"question": question}
     for output in app.stream(inputs):
         for key, value in output.items():
@@ -758,4 +758,4 @@ if astradb_api_key and NEO4J_PASSWORD and google_api_key and GROQ_API_KEY and qu
     st.write(value['documents'])
     
 else:
-    st.write('Please fill all required parameters')
+    st.write('Please fill all required parameters or select question')
