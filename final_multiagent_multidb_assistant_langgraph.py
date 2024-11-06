@@ -487,14 +487,6 @@ def astradb_main_funct(ASTRADB_API_KEY,google_api_key,question,st):
         SQL_Code = response.text
         return response.text
     
-    # Streamlit App
-    
-    st.markdown("""# **Vector Database Gemini Assistant**
-    This is an experimental assistant that requires Gemini Gen AI access. The app demonstrates the use of Gemini AI to support getting insights from Vector Database by just asking questions. 
-    This assistant has RAG technique used to get more accurate response out of similirity search output of vector db.
-    """
-    )
-    
     if question:
         os.environ["ASTRA_DB_API_ENDPOINT"] ="https://5e5c552b-3a72-4b4b-bd83-0e2e0f12347a-us-east-2.apps.astra.datastax.com"
         os.environ["ASTRADB_API_KEY"] =ASTRADB_API_KEY
@@ -524,6 +516,12 @@ def astradb_main_funct(ASTRADB_API_KEY,google_api_key,question,st):
         
         final_output = get_final_output_from_model(prompt_template)
         
+        # Streamlit App
+        st.markdown("""# **Vector Database Gemini Assistant**
+        This is an experimental assistant that requires Gemini Gen AI access. The app demonstrates the use of Gemini AI to support getting insights from Vector Database by just asking questions. 
+        This assistant has RAG technique used to get more accurate response out of similirity search output of vector db.
+        """
+        )
         st.write("Astra vector store configured")
         st.write("User Question:")
         st.write(question)
