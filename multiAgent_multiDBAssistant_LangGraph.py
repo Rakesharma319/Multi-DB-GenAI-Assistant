@@ -32,7 +32,7 @@ option = st.selectbox(
     (question1,question2,question3,question4),
 )
 question=option
-st.sidebar.write("You selected:", question)
+st.write("You selected:", question)
 
 ## --------- Tools Code start -----
 
