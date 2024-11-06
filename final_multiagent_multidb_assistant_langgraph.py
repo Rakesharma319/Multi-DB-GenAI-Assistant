@@ -472,43 +472,46 @@ def astradb_main_funct(ASTRADB_API_KEY,google_api_key,question,st):
     This assistant has RAG technique used to get more accurate response out of similirity search output of vector db.
     """
     )
-
-    os.environ["ASTRA_DB_API_ENDPOINT"] ="https://5e5c552b-3a72-4b4b-bd83-0e2e0f12347a-us-east-2.apps.astra.datastax.com"
-    os.environ["ASTRADB_API_KEY"] =ASTRADB_API_KEY
-    os.environ["GOOGLE_API_KEY"] = google_api_key
     
-    genai.configure(api_key=google_api_key)
-    # Configure your embedding model and vector store
-    embedding = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
+    if question:
+        os.environ["ASTRA_DB_API_ENDPOINT"] ="https://5e5c552b-3a72-4b4b-bd83-0e2e0f12347a-us-east-2.apps.astra.datastax.com"
+        os.environ["ASTRADB_API_KEY"] =ASTRADB_API_KEY
+        os.environ["GOOGLE_API_KEY"] = google_api_key
+        
+        genai.configure(api_key=google_api_key)
+        # Configure your embedding model and vector store
+        embedding = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
+        
+        vstore = AstraDBVectorStore(
+            collection_name="qa_mini_demo2",
+            embedding=embedding,
+            token=os.getenv("ASTRADB_API_KEY"),
+            api_endpoint=os.getenv("ASTRA_DB_API_ENDPOINT"),
+        )
     
-    vstore = AstraDBVectorStore(
-        collection_name="qa_mini_demo2",
-        embedding=embedding,
-        token=os.getenv("ASTRADB_API_KEY"),
-        api_endpoint=os.getenv("ASTRA_DB_API_ENDPOINT"),
-    )
+        retriever = vstore.as_retriever(search_kwargs={"k": 3})
+        retriver_op = retriever.invoke(question)
+        
+        prompt_template = f"""Answer the question based only on the supplied context. If you don't know the answer, say you don't know the answer.
+        If you know the answer then give your openion on the final result in 100 words, and tag it with 'My Openion' followed by original result.
+        Context: {retriver_op}
+        Question: {question}
+        Your answer:
+        Your Openion :
+        """
+        
+        final_output = get_final_output_from_model(prompt_template)
+        
+        st.write("Astra vector store configured")
+        st.write("User Question:")
+        st.write(question)
+        st.write("Response:")
+        st.write(final_output)
+        st.write("similar search output")
+        st.write(retriver_op)
     
-    retriever = vstore.as_retriever(search_kwargs={"k": 3})
-    retriver_op = retriever.invoke(question)
-    
-    prompt_template = f"""Answer the question based only on the supplied context. If you don't know the answer, say you don't know the answer.
-    If you know the answer then give your openion on the final result in 100 words, and tag it with 'My Openion' followed by original result.
-    Context: {retriver_op}
-    Question: {question}
-    Your answer:
-    Your Openion :
-    """
-    
-    final_output = get_final_output_from_model(prompt_template)
-    
-    st.write("Astra vector store configured")
-    st.write("User Question:")
-    st.write(question)
-    st.write("Response:")
-    st.write(final_output)
-    st.write("similar search output")
-    st.write(retriver_op)
-    
+    else:
+        st.write("Please ask question !!")
         
 ### 4. VectorStore(RAG application)  end
 
