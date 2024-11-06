@@ -215,7 +215,7 @@ def wiki_search(state):
 
     # Wiki search
     docs = wiki.invoke({"query": question})
-    st.write(docs["summary"])
+    # st.write(docs["summary"])
     wiki_results = docs
     # wiki_results = Document(page_content=wiki_results)
 
