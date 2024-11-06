@@ -616,7 +616,7 @@ def retrieve(state):
 
     # Retrieval
     # documents = retriever.invoke(question)
-    documents = astradb_main_funct(ASTRADB_API_KEY,GOOGLE_API_KEY,question,st)
+    documents = astradb_main_funct(ASTRADB_API_KEY,google_api_key,question,st)
     return {"documents": documents, "question": question}
 
 def rdbms_query(state):
