@@ -27,7 +27,12 @@ question2 = "Who is Virat Kohali?" #-- wiki
 question3 = "visualize all albums by month?" # -- rdbms
 question4 = "write a quote to become richer, and aslo show tags and author?" #--- vector
 
-question = st.sidebar.selectbox('select question',(question1,question2,question3,question4))
+option = st.selectbox(
+    "How would you like to be contacted?",
+    (question1,question2,question3,question4),
+)
+
+question = st.sidebar.text_input(option)
 
 ## --------- Tools Code start -----
 
