@@ -119,11 +119,6 @@ route_prompt = ChatPromptTemplate.from_messages(
 
 question_router = route_prompt | structured_llm_router
 
-# question = "List all movies by Imdb ratings , and sort by imdb rating ascending?"
-# question = "Who is Virat Kohali?"
-# question = "visualize all albums by month?"
-# question = "write a quote to become richer, and aslo show tags and author?"
-
 st.write(
     question_router.invoke(
         {"question": question}
