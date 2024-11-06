@@ -1,6 +1,7 @@
 from typing import Literal
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.pydantic_v1 import BaseModel, Field
+import os
 ### Working With Tools
 from langchain_community.utilities import ArxivAPIWrapper,WikipediaAPIWrapper
 from langchain_community.tools import ArxivQueryRun,WikipediaQueryRun
@@ -15,6 +16,8 @@ from langgraph.graph import END, StateGraph, START
 api_key = "123654789ghjm"
 db_password = "jgvmsdbf11333"
 st = "col1"
+
+GROQ_API_KEY = st.sidebar.text_input("Enter groqu password",type="password")
 
 # Run
 # question = "List all movies by Imdb ratings , and sort by imdb rating ascending?" #--- GraphDB
@@ -79,11 +82,10 @@ class RouteQuery(BaseModel):
         description="Given a user question choose to route it to relationalDB or graphDB or vectorDB or wikipedia.",
     )
 
-from google.colab import userdata
 # LLM with function call
 from langchain_groq import ChatGroq
-import os
-groq_api_key=userdata.get('GROQ_API_KEY')
+
+groq_api_key=GROQ_API_KEY
 os.environ["GROQ_API_KEY"]=groq_api_key
 llm=ChatGroq(groq_api_key=groq_api_key,model_name="Gemma2-9b-It")
 structured_llm_router = llm.with_structured_output(RouteQuery)
