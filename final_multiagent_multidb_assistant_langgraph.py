@@ -34,7 +34,13 @@ from langgraph.graph import END, StateGraph, START
 
 # Stramlit app
 col1, col2 = st.columns((3, 1))
-col1.title("🦜🔗 Database Router Agents GenAI Assistant")
+
+col1.markdown(
+        """# **Multi-Database gen AI Assistant**
+        This is an experimental Multi-Database Gemini Gen AI assistant that requires Gemini Gen AI access. 
+        This app demonstrates auto-routing of user question to respected database like VectorDB,GraphDB,sqlite by multi agent concept
+        and if question is none of database related then this will route to wikipedia automatically."""
+        )
 
 # Run
 question1 = "List all movies by Imdb ratings , and sort by imdb rating ascending?" #--- GraphDB
