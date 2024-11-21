@@ -569,9 +569,9 @@ structured_llm_router = llm.with_structured_output(RouteQuery)
 
 # Prompt
 system = """You are an expert at routing a user question to relationalDB or graphDB or vectorDB or wikipedia.
-relationalDB conatain data related to musics, albums, singer etc.
+relationalDB conatain non indian musics data related to musics, albums, singer etc.
 graphDB contains US movies data related to movies, acted_in, directors, Gener, IMDB ratings, title etc.
-vectorDB contains data related to author, quotes and tags.
+vectorDB contains non indian data related to author, quotes and tags.
 if user question is not related to above datasources then use wikipedia.
 """
 route_prompt = ChatPromptTemplate.from_messages(
