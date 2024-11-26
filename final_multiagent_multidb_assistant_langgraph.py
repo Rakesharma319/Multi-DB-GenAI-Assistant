@@ -743,7 +743,7 @@ workflow.add_edge( "graphDB_query", END)
 # Compile
 app = workflow.compile()
 
-if question :
+if (astradb_api_key and NEO4J_PASSWORD and google_api_key and GROQ_API_KEY) and question!='Select question from list...':
     inputs = {"question": question}
     for output in app.stream(inputs):
         for key, value in output.items():
