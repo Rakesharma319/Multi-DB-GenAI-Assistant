@@ -629,7 +629,7 @@ def retrieve(state):
         state (dict): New key added to state, documents, that contains retrieved documents
     """
     #st.write("---RETRIEVE---")
-	st.success("RETRIEVE", icon="✅")
+    st.success("RETRIEVE", icon="✅")
     question = state["question"]
 
     # Retrieval
@@ -648,7 +648,7 @@ def rdbms_query(state):
         state (dict): New key added to state, documents, that contains retrieved documents
     """
     #st.write("---RDBMS Query---")
-	st.success('RDBMS Query', icon="✅")
+    st.success('RDBMS Query', icon="✅")
     question = state["question"]
 
     # Retrieval
@@ -668,7 +668,7 @@ def graphDB_query(state):
         state (dict): New key added to state, documents, that contains retrieved documents
     """
     #print("---Graph DB Query---")
-	st.success('Graph DB Query', icon="✅")
+    st.success('Graph DB Query', icon="✅")
     question = state["question"]
 
     # Retrieval
@@ -689,7 +689,7 @@ def wiki_search(state):
     """
 
     #st.write("---wikipedia---")
-	st.success('wikipedia', icon="✅")
+    st.success('wikipedia', icon="✅")
     st.write("HELLO", icon = "👋")
     question = state["question"]
     st.write(question)
@@ -716,24 +716,24 @@ def route_question(state):
     """
 
     #st.write("---ROUTE QUESTION---")
-	st.success('ROUTE QUESTION', icon="✅")
+    st.success('ROUTE QUESTION', icon="✅")
     question = state["question"]
     source = question_router.invoke({"question": question})
     if source.datasource == "wikipedia":
         #st.write("---ROUTE QUESTION TO Wiki SEARCH---")
-		st.success('ROUTE QUESTION TO Wiki SEARCH!', icon="✅")
+        st.success('ROUTE QUESTION TO Wiki SEARCH!', icon="✅")
         return "wikipedia"
     elif source.datasource == "relationalDB":
         #st.write("---ROUTE QUESTION TO RDBMS---")
-		st.success('ROUTE QUESTION TO RDBMS!', icon="✅")
+        st.success('ROUTE QUESTION TO RDBMS!', icon="✅")
         return "relationalDB"
     elif source.datasource == "vectorstore":
         #st.write("---ROUTE QUESTION TO RAG---")
-		st.success('ROUTE QUESTION TO RAG!', icon="✅")
+        st.success('ROUTE QUESTION TO RAG!', icon="✅")
         return "vectorstore"
     elif source.datasource == "graphDB":
         #st.write("---ROUTE QUESTION TO GRAPHDB---")
-		st.success('ROUTE QUESTION TO GRAPHDB!', icon="✅")
+        st.success('ROUTE QUESTION TO GRAPHDB!', icon="✅")
         return "graphDB"
     else:
         raise ValueError(f"Unknown datasource: {source.datasource}")
