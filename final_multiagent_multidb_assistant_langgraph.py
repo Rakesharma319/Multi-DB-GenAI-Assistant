@@ -560,36 +560,40 @@ class RouteQuery(BaseModel):
     )
 
 # LLM with function call
-from langchain_groq import ChatGroq
+
 if GROQ_API_KEY:
+	from langchain_groq import ChatGroq
 	groq_api_key=GROQ_API_KEY
 	os.environ["GROQ_API_KEY"]=groq_api_key
 	llm=ChatGroq(groq_api_key=groq_api_key,model_name="Gemma2-9b-It")
 	structured_llm_router = llm.with_structured_output(RouteQuery)
+
+	# Prompt
+	system = """You are an expert at routing a user question to relationalDB or graphDB or vectorDB or wikipedia.
+	relationalDB conatain non indian musics data related to musics, albums, singer etc.
+	graphDB contains US movies data related to movies, acted_in, directors, Gener, IMDB ratings, title etc.
+	vectorDB contains non indian data related to author, quotes and tags.
+	if user question is not related to above datasources then use wikipedia.
+	"""
+	
+	route_prompt = ChatPromptTemplate.from_messages(
+		[
+			("system", system),
+			("human", "{question}"),
+		]
+	)
+	
+	question_router = route_prompt | structured_llm_router
+	
+	st.write(
+		question_router.invoke(
+			{"question": question}
+		)
+	)
+
 else:
 	st.write("Please enter all parameters value")
 
-# Prompt
-system = """You are an expert at routing a user question to relationalDB or graphDB or vectorDB or wikipedia.
-relationalDB conatain non indian musics data related to musics, albums, singer etc.
-graphDB contains US movies data related to movies, acted_in, directors, Gener, IMDB ratings, title etc.
-vectorDB contains non indian data related to author, quotes and tags.
-if user question is not related to above datasources then use wikipedia.
-"""
-route_prompt = ChatPromptTemplate.from_messages(
-    [
-        ("system", system),
-        ("human", "{question}"),
-    ]
-)
-
-question_router = route_prompt | structured_llm_router
-
-st.write(
-    question_router.invoke(
-        {"question": question}
-    )
-)
 # print(question_router.invoke({"question": "What are the types of agent memory?"}))
 
 class GraphState(TypedDict):
