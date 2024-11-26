@@ -629,7 +629,7 @@ def retrieve(state):
         state (dict): New key added to state, documents, that contains retrieved documents
     """
     #st.write("---RETRIEVE---")
-	st.success('RETRIEVE', icon="✅")
+	st.success("RETRIEVE", icon="✅")
     question = state["question"]
 
     # Retrieval
