@@ -78,7 +78,9 @@ def wiki(question):
     
     st.markdown(
         """# **Wikipedia Assistant**
-        This is an experimental assistant that requires Gemini Gen AI access. The app demonstrates the use of Gemini AI to support getting insights from wikipedia by just asking questions."""
+        This is an experimental assistant that requires Gemini Gen AI access. 
+	The app demonstrates the use of Gemini AI to support getting insights 
+ 	from wikipedia by just asking questions."""
         )
     st.write(docs)
 
@@ -214,7 +216,9 @@ def rdbms_main(google_api_key,question,st):
         
         st.markdown(
         """# **Relational Database Gemini Assistant**
-        This is an experimental assistant that requires Gemini Gen AI access. The app demonstrates the use of Gemini AI to support getting insights from Relational Database by just asking questions."""
+        This is an experimental assistant that requires Gemini Gen AI access. 
+	The app demonstrates the use of Gemini AI to support getting insights from 
+ 	Relational Database by just asking questions."""
         )
         
         for action3 in actions3:
@@ -343,9 +347,9 @@ def graphDB_main(NEO4J_PASSWORD,google_api_key,question,st):
     os.environ["NEO4J_PASSWORD"]=NEO4J_PASSWORD
     
     if schema:
-        st.write("Database Connection Success!!")
+        st.success("Database Connection Success!!")
     else:
-        st.write("Check DB Connection")
+        st.warning("Check DB Connection")
     
     # function to display llm responce
     def display_output(llm_response,st):
@@ -398,7 +402,8 @@ def graphDB_main(NEO4J_PASSWORD,google_api_key,question,st):
         st.markdown(
         """# **Graph Database Gemini Assistant**
         This is an experimental assistant that requires Gemini Gen AI access. 
-	The app demonstrates the use of Gemini AI to support getting insights from Graph Database by just asking questions."""
+	The app demonstrates the use of Gemini AI to support getting insights from 
+ 	Graph Database by just asking questions."""
         )
         
         for action3 in actions3:
@@ -531,7 +536,8 @@ def astradb_main_funct(ASTRADB_API_KEY,google_api_key,question,st):
         
         # Streamlit App
         st.markdown("""# **Vector Database Gemini Assistant**
-        This is an experimental assistant that requires Gemini Gen AI access. The app demonstrates the use of Gemini AI to support getting insights from Vector Database by just asking questions. 
+        This is an experimental assistant that requires Gemini Gen AI access. 
+	The app demonstrates the use of Gemini AI to support getting insights from Vector Database by just asking questions. 
         This assistant has RAG technique used to get more accurate response out of similirity search output of vector db.
         """
         )
