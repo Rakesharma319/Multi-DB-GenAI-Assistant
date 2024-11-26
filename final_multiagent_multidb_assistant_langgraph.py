@@ -690,7 +690,7 @@ def wiki_search(state):
 
     #st.write("---wikipedia---")
     st.success('wikipedia', icon="✅")
-    st.write("HELLO", icon = "👋")
+    st.write("HELLO :wave:")
     question = state["question"]
     st.write(question)
 
