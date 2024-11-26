@@ -561,11 +561,13 @@ class RouteQuery(BaseModel):
 
 # LLM with function call
 from langchain_groq import ChatGroq
-
-groq_api_key=GROQ_API_KEY
-os.environ["GROQ_API_KEY"]=groq_api_key
-llm=ChatGroq(groq_api_key=groq_api_key,model_name="Gemma2-9b-It")
-structured_llm_router = llm.with_structured_output(RouteQuery)
+if GROQ_API_KEY:
+	groq_api_key=GROQ_API_KEY
+	os.environ["GROQ_API_KEY"]=groq_api_key
+	llm=ChatGroq(groq_api_key=groq_api_key,model_name="Gemma2-9b-It")
+	structured_llm_router = llm.with_structured_output(RouteQuery)
+else:
+	st.write("Please enter all parameters value")
 
 # Prompt
 system = """You are an expert at routing a user question to relationalDB or graphDB or vectorDB or wikipedia.
@@ -743,7 +745,7 @@ workflow.add_edge( "graphDB_query", END)
 # Compile
 app = workflow.compile()
 
-if (astradb_api_key and NEO4J_PASSWORD and google_api_key and GROQ_API_KEY and question):
+if (astradb_api_key and NEO4J_PASSWORD and google_api_key and GROQ_API_KEY) and question!='Select question from list...':
     inputs = {"question": question}
     for output in app.stream(inputs):
         for key, value in output.items():
