@@ -397,7 +397,8 @@ def graphDB_main(NEO4J_PASSWORD,google_api_key,question,st):
         
         st.markdown(
         """# **Graph Database Gemini Assistant**
-        This is an experimental assistant that requires Gemini Gen AI access. The app demonstrates the use of Gemini AI to support getting insights from Graph Database by just asking questions."""
+        This is an experimental assistant that requires Gemini Gen AI access. 
+	The app demonstrates the use of Gemini AI to support getting insights from Graph Database by just asking questions."""
         )
         
         for action3 in actions3:
