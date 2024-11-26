@@ -592,7 +592,7 @@ if GROQ_API_KEY:
 	)
 
 else:
-	st.write("Please enter all parameters value")
+	st.write("Please enter all API key, DB Password and User Questions")
 
 # print(question_router.invoke({"question": "What are the types of agent memory?"}))
 
@@ -764,4 +764,4 @@ if (astradb_api_key and NEO4J_PASSWORD and google_api_key and GROQ_API_KEY) and 
     st.write(value['documents'])
     
 else:
-    st.write('Please fill all required parameters or select question')
+    st.write('Please enter all API key, DB Password and User Questions')
