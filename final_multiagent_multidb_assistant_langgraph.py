@@ -563,7 +563,7 @@ class RouteQuery(BaseModel):
 
     datasource: Literal["relationalDB","graphDB","vectorstore", "wikipedia"] = Field(
         ...,
-        description="Given a user question choose to route it to relationalDB or graphDB or vectorDB or wikipedia.",
+        description="Given a user question choose to route it to relationalDB or graphDB or vectorstore or wikipedia.",
     )
 
 # LLM with function call
@@ -576,10 +576,10 @@ if GROQ_API_KEY:
 	structured_llm_router = llm.with_structured_output(RouteQuery)
 
 	# Prompt
-	system = """You are an expert at routing a user question to relationalDB or graphDB or vectorDB or wikipedia.
+	system = """You are an expert at routing a user question to relationalDB or graphDB or vectorstore or wikipedia.
 	relationalDB conatain non indian musics data related to musics, albums, singer etc.
 	graphDB contains US movies data related to movies, acted_in, directors, Gener, IMDB ratings, title etc.
-	vectorDB contains non indian data related to author, quotes and tags.
+	vectorstore contains non indian data related to author, quotes and tags.
 	if user question is not related to above datasources then use wikipedia.
 	"""
 	
