@@ -639,7 +639,7 @@ def retrieve(state):
 
 def rdbms_query(state):
     """
-    Retrieve documents
+    Generate SQL, Execute SQL, Observe Data, Final Result
 
     Args:
         state (dict): The current graph state
@@ -659,7 +659,7 @@ def rdbms_query(state):
 
 def graphDB_query(state):
     """
-    Retrieve documents
+    Generate Cypher, Execute SQL, Observe Data, Final Result
 
     Args:
         state (dict): The current graph state
